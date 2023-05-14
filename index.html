@@ -1,18 +1,15 @@
 <!DOCTYPE html>
-<!-- Coding by CodingNepal | www.codingnepalweb.com -->
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title> Learning Toghether</title>
+    <title>Learn Toghether</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- Boxiocns CDN Link -->
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script src="js/script.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
+
     <div class="sidebar close">
         <div class="logo-details">
             <i class='bx bx-book'></i>
@@ -118,18 +115,6 @@
                     <li><a class="link_name" href="#">Setting</a></li>
                 </ul>
             </li>
-            <li>
-                <div class="profile-details">
-                    <div class="profile-content">
-                        <img src="image/tes.png" alt="profileImg">
-                    </div>
-                    <div class="name-job">
-                        <div class="profile_name"></div>
-                        <div class="job">Web Desginer</div>
-                    </div>
-                    <i class='bx bx-log-out'></i>
-                </div>
-            </li>
         </ul>
     </div>
 
@@ -137,15 +122,43 @@
         <div class="home-content">
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <span class="text"></span>
+            <div class="forum-title-box">
+                <div class="box">
+                    <div class="box-image">
+                        <img src="image/tes.png" alt="Image description" class="box-image">
+                    </div>
+                    <div class="box-content">
+                        <div class="box-title">
+                            <a href="">
+                                <h2>Importan Englisha</h2>
+                            </a>
+                        </div>
+                        <div class="box-description">
+                            <p>This is a brief description of the box content.</p>
+                        </div>
+                    </div>
+                    <div class="box-buttons">
+                        <button class="box-button bx bx-show">100 Views</button>
+                        <button class="box-button bx bx-comment">10 Comments</button>
+                        <button class="box-button bx bx-user-plus">10 Followers</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <script>
-        let arrow = document.querySelectorAll(".arrow");
+    <div class="container">
+        <a href="#" class="btn btn-login">Log In</a>
+        <a href="#" class="btn btn-register">Sign Up</a>
+    </div>
+
+    <script>let arrow = document.querySelectorAll(".arrow");
         for (var i = 0; i < arrow.length; i++) {
             arrow[i].addEventListener("click", (e) => {
-                let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+                let arrowParent = e.target.parentElement.parentElement;
                 arrowParent.classList.toggle("showMenu");
+                let mainContent = document.querySelector(".home-section");
+                mainContent.classList.toggle("shifted");
             });
         }
         let sidebar = document.querySelector(".sidebar");
@@ -153,15 +166,24 @@
         console.log(sidebarBtn);
         sidebarBtn.addEventListener("click", () => {
             sidebar.classList.toggle("close");
+            let mainContent = document.querySelector(".home-section");
+            mainContent.classList.toggle("shifted");
+        });
+
+
+
+        const loginBtn = document.querySelector(".btn-login");
+        const registerBtn = document.querySelector(".btn-register");
+
+
+        loginBtn.addEventListener("click", () => {
+            console.log("Login button clicked");
+            // Add code to handle login button click
+        });
+
+        registerBtn.addEventListener("click", () => {
+            console.log("Register button clicked");
         });
     </script>
-
-    <!-- <div class="search-container">
-        <form action="#">
-            <input type="text" placeholder="Search...">
-            <button type="submit"><i class="bx bx-search"></i></button>
-        </form>
-    </div>
-</body> -->
 
 </html>

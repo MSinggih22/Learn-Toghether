@@ -1,2 +1,2 @@
 # Learn-Toghether
-School Learning Forum Project
+Learning Forum Project

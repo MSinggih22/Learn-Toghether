@@ -1,67 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
 </head>
+
 <body>
-<body style="background-image: url('background-image.jpg');">
-  <div class="form-container">
-    <form action="#" method="post" enctype="multipart/form-data">
-      <div>
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required>
-      </div>
-      <div>
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required></textarea>
-      </div>
-      <div>
-        <label for="topics">Topics:</label>
-        <select id="topics" name="topics">
-          <option value="technology">Technology</option>
-          <option value="health">Health</option>
-          <option value="business">Business</option>
-          <option value="entertainment">Entertainment</option>
-        </select>
-      </div>
-      <div>
-        <label for="image">Image Upload:</label>
-        <input type="file" id="image" name="image">
-      </div>
-      <div>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
-  </div>
+	<!DOCTYPE html>
+	<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+	</head>
+
+	<body>
+		<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+			<label for="title">Title:</label>
+			<input type="text" id="title" name="title">
+
+			<label for="description">Description:</label>
+			<textarea id="description" name="description"></textarea>
+
+			<form action="action.php" method="POST" onsubmit="return confirm('Are you sure you want to submit?');">
+				<!-- form fields -->
+				<button type="submit" name="submit">Add</button>
+			</form>
+		</form>
+
+		<script>
+			// clear the input fields when the page loads
+			document.getElementById("title").value = "";
+			document.getElementById("description").value = "";
+		</script>
+
+
+	</html>
+
+	<?php
+	// if the form is submitted
+	if (isset($_POST['submit'])) {
+		// get the values of the input fields
+		$title = $_POST['title'];
+		$description = $_POST['description'];
+
+		// connect to the database
+		$servername = "localhost";
+		$username = "root";
+		$password = "";
+		$dbname = "lt";
+
+		$conn = mysqli_connect($servername, $username, $password, $dbname);
+		if (!$conn) {
+			die("Connection failed: " . mysqli_connect_error());
+		}
+
+		// set views, comments, and followers to 0
+		$views = 0;
+		$comments = 0;
+		$followers = 0;
+
+		// insert the new data into the "boxes" table
+		$sql = "INSERT INTO topics (title, description, views, comments, followers) 
+            VALUES ('$title', '$description', '$views', '$comments', '$followers')";
+		mysqli_query($conn, $sql);
+
+		mysqli_close($conn);
+
+		// redirect to the same page to reload the boxes
+		header("Location: " . $_SERVER['PHP_SELF']);
+		exit();
+	}
+	?>
 </body>
 
-<style>
-  body {
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
-    filter: blur(5px);
-  }
-
-  .form-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-  }
-
-  form {
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
-  }
-</style>
-
+</html>
 </body>
+
 </html>

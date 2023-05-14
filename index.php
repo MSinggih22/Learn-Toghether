@@ -114,38 +114,56 @@
                     <li><a class="link_name" href="#">Setting</a></li>
                 </ul>
             </li>
-            <button id="create-box-btn">Create a new box</button>
         </ul>
     </div>
 
     <section class="home-section">
         <div class="home-content">
-            <a href="newpost.html" class="create-post-button">Create New Post</a>
+            <a href="newpost.php" class="create-post-button">Create New Post</a>
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <span class="text"></span>
-            <div class="forum-title-box">
-                <div class="main-box">
-                    <div class="box">
-                        <div class="box-image">
-                            <img src="image/tes.png" alt="Image description" class="box-image">
-                        </div>
-                        <div class="box-content">
-                            <div class="box-title">
-                                <a href="">
-                                    <h2>Importan English</h2>
-                                </a>
-                            </div>
-                            <div class="box-description">
-                                <p>This is a brief description of the box content.</p>
-                            </div>
-                        </div>
-                        <div class="box-buttons">
-                            <button class="box-button bx bx-show">100 Views</button>
-                            <button class="box-button bx bx-comment">10 Comments</button>
-                            <button class="box-button bx bx-user-plus">10 Followers</button>
-                        </div>
-                    </div>
-                </div>
+            <div id="boxes">
+                <?php
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $dbname = "lt";
+                $conn = mysqli_connect($servername, $username, $password, $dbname);
+                if (!$conn) {
+                    die("Connection failed: " . mysqli_connect_error());
+                }
+
+                // select all data from the "boxes" table
+                $sql = "SELECT * FROM topics";
+                $result = mysqli_query($conn, $sql);
+
+                // loop through the data and create a box for each row
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<div class='box'>";
+                        echo "<div class='box-image'>";
+                        echo "<img src='assets/image/tes.png' alt='Image description' class='box-image'>";
+                        echo "</div>";
+                        echo "<div class='box-content'>";
+                        echo "<div class='box-title'>";
+                        echo "<a href=''>";
+                        echo "<h2>" . $row['title'] . "</h2>";
+                        echo "</a>";
+                        echo "</div>";
+                        echo "<div class='box-description'>";
+                        echo "<p>" . $row['description'] . "</p>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "<div class='box-buttons'>";
+                        echo "<button class='box-button bx bx-show'>" . $row['views'] . " Views</button>";
+                        echo "<button class='box-button bx bx-comment'>" . $row['comments'] . " Comments</button>";
+                        echo "<button class='box-button bx bx-user-plus'>" . $row['followers'] . " Followers</button>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                }
+                mysqli_close($conn);
+                ?>
             </div>
         </div>
     </section>
@@ -194,10 +212,10 @@
 
         //search script
         const searchBar = document.querySelector('input[type="text"]');
-        searchBar.addEventListener("keyup", function (e) {
+        searchBar.addEventListener("keyup", function(e) {
             const term = e.target.value.toLowerCase();
             const items = document.querySelectorAll("div.item");
-            Array.from(items).forEach(function (item) {
+            Array.from(items).forEach(function(item) {
                 const title = item.textContent;
                 if (title.toLowerCase().indexOf(term) != -1) {
                     item.style.display = "block";
@@ -206,65 +224,6 @@
                 }
             });
         });
-
-
-        const createBoxBtn = document.querySelector("#create-box-btn");
-        let mainBox = document.querySelector(".main-box");
-
-        createBoxBtn.addEventListener("click", function () {
-            const newBox = document.createElement("div");
-            newBox.classList.add("box");
-            newBox.style.top = mainBox.getBoundingClientRect().top + 250 + "px"; // position new box 200px below main box
-
-            const boxImage = document.createElement("div");
-            boxImage.classList.add("box-image");
-            const image = document.createElement("img");
-            image.src = "image/tes.png";
-            image.alt = "Image description";
-            image.classList.add("box-image");
-            boxImage.appendChild(image);
-            newBox.appendChild(boxImage);
-
-            const boxContent = document.createElement("div");
-            boxContent.classList.add("box-content");
-            const boxTitle = document.createElement("div");
-            boxTitle.classList.add("box-title");
-            const titleLink = document.createElement("a");
-            titleLink.href = "#";
-            const titleHeading = document.createElement("h2");
-            titleHeading.textContent = "New Box Title";
-            titleLink.appendChild(titleHeading);
-            boxTitle.appendChild(titleLink);
-            boxContent.appendChild(boxTitle);
-            const boxDescription = document.createElement("div");
-            boxDescription.classList.add("box-description");
-            const descriptionText = document.createElement("p");
-            descriptionText.textContent =
-                "This is a brief description of the new box content.";
-            boxDescription.appendChild(descriptionText);
-            boxContent.appendChild(boxDescription);
-            newBox.appendChild(boxContent);
-
-            const boxButtons = document.createElement("div");
-            boxButtons.classList.add("box-buttons");
-            const viewsButton = document.createElement("button");
-            viewsButton.classList.add("box-button", "bx", "bx-show");
-            viewsButton.textContent = "100 Views";
-            const commentsButton = document.createElement("button");
-            commentsButton.classList.add("box-button", "bx", "bx-comment");
-            commentsButton.textContent = "10 Comments";
-            const followersButton = document.createElement("button");
-            followersButton.classList.add("box-button", "bx", "bx-user-plus");
-            followersButton.textContent = "10 Followers";
-            boxButtons.appendChild(viewsButton);
-            boxButtons.appendChild(commentsButton);
-            boxButtons.appendChild(followersButton);
-            newBox.appendChild(boxButtons);
-
-            mainBox.insertAdjacentElement("afterend", newBox);
-            mainBox = newBox; // update mainBox to reference the newly created box
-        });
-
     </script>
 </body>
 

@@ -199,7 +199,7 @@
   font-weight: 500;
   white-space: nowrap;
 }
-.sidebar.close .profile-details i,
+.sidebar.close .profile-details a,
 .sidebar.close .profile-details .profile_name,
 .sidebar.close .profile-details .job {
   display: none;
@@ -314,16 +314,27 @@
   text-decoration: none;
   top: 30px;
 }
+#boxes {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  top: 40px;
+  width: 80%;
+  z-index: 999; 
+}
 
 .box {
+  position: relative;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
-  position: absolute;
+  border: 1px solid black;
+  padding: 10px;
+  margin-bottom: 10px;
   top: 60px;
   left: 150px;
   z-index: 9999;
-  width: 76%; /* Set width to 60% */
+  width: 200%;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;

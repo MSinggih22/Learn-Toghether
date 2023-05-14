@@ -17,9 +17,9 @@
         </div>
         <ul class="nav-links">
             <li>
-                <a href="#">
+                <a href="index.php">
                     <i class='bx bx-grid-alt'></i>
-                    <span class="link_name">Timeline</span>
+                    <span class="link_name">Home</span>
                 </a>
                 <ul class="sub-menu blank">
                     <li><a class="link_name" href="#">Category</a></li>
@@ -121,10 +121,9 @@
                         <img src="image/tes.png" alt="profileImg">
                     </div>
                     <div class="name-job">
-                        <div class="profile_name"></div>
-                        <div class="job">Web Desginer</div>
+                        <div class="profile_name">SinG</div>
                     </div>
-                    <i class='bx bx-log-out'></i>
+                    <a class='bx bx-log-out' href="index.php" ></a>
                 </div>
             </li>
         </ul>
@@ -164,7 +163,6 @@
             <button type="submit"><i class="bx bx-search"></i></button>
         </form>
     </div>
-
 
 
     <script>

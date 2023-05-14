@@ -198,15 +198,14 @@
   font-size: 18px;
   font-weight: 500;
   white-space: nowrap;
-
-  .sidebar.close .profile-details i,
-  .sidebar.close .profile-details .profile_name,
-  .sidebar.close .profile-details .job {
-    display: none;
-  }
-  .sidebar .profile-details .job {
-    font-size: 12px;
-  }
+}
+.sidebar.close .profile-details i,
+.sidebar.close .profile-details .profile_name,
+.sidebar.close .profile-details .job {
+  display: none;
+}
+.sidebar .profile-details .job {
+  font-size: 12px;
 }
 .home-section {
   position: relative;
@@ -312,7 +311,7 @@
   justify-content: flex-end;
   align-items: center;
   position: absolute;
-  top: 100px;
+  top: 60px;
   left: 150px;
   z-index: 9999;
   width: 76%; /* Set width to 60% */
@@ -423,4 +422,33 @@
   font-size: 12px;
   line-height: 1.5;
   margin-bottom: 10px;
+}
+
+.search-container {
+  float: right;
+}
+
+.search-container {
+  position: absolute;
+  top: -6px;
+  right: 150px;
+  display: flex;
+  margin-top: 10px;
+  margin-right: 10px;
+  justify-content: flex-end;
+  align-items: center;
+  height: 60px;
+  z-index: 1;
+}
+.ex-search-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  margin-top: 10px;
+  margin-right: 10px;
+  justify-content: flex-end;
+  align-items: center;
+  height: 60px;
+  z-index: 1;
 }

@@ -115,6 +115,18 @@
                     <li><a class="link_name" href="#">Setting</a></li>
                 </ul>
             </li>
+            <li>
+                <div class="profile-details">
+                    <div class="profile-content">
+                        <img src="image/tes.png" alt="profileImg">
+                    </div>
+                    <div class="name-job">
+                        <div class="profile_name"></div>
+                        <div class="job">Web Desginer</div>
+                    </div>
+                    <i class='bx bx-log-out'></i>
+                </div>
+            </li>
         </ul>
     </div>
 
@@ -123,45 +135,37 @@
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <span class="text"></span>
             <div class="forum-title-box">
-                <div class="main-box">
-                    <div class="box">
-                        <div class="box-image">
-                            <img src="image/tes.png" alt="Image description" class="box-image">
+                <div class="box">
+                    <div class="box-image">
+                        <img src="image/tes.png" alt="Image description" class="box-image">
+                    </div>
+                    <div class="box-content">
+                        <div class="box-title">
+                            <a href="">
+                                <h2>Importan English</h2>
+                            </a>
                         </div>
-                        <div class="box-content">
-                            <div class="box-title">
-                                <a href="">
-                                    <h2>Importan English</h2>
-                                </a>
-                            </div>
-                            <div class="box-description">
-                                <p>This is a brief description of the box content.</p>
-                            </div>
+                        <div class="box-description">
+                            <p>This is a brief description of the box content.</p>
                         </div>
-                        <div class="box-buttons">
-                            <button class="box-button bx bx-show">100 Views</button>
-                            <button class="box-button bx bx-comment">10 Comments</button>
-                            <button class="box-button bx bx-user-plus">10 Followers</button>
-                        </div>
+                    </div>
+                    <div class="box-buttons">
+                        <button class="box-button bx bx-show">100 Views</button>
+                        <button class="box-button bx bx-comment">10 Comments</button>
+                        <button class="box-button bx bx-user-plus">10 Followers</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <div class="container">
-        <a href="#" class="btn btn-login">Log In</a>
-        <a href="#" class="btn btn-register">Sign Up</a>
-    </div>
-
-    <div class="search-container">
+    <div class="ex-search-container">
         <form action="#">
             <input type="text" placeholder="Search...">
             <button type="submit"><i class="bx bx-search"></i></button>
         </form>
     </div>
 
-    <button id="create-box-btn">Create a new box</button>
+
 
     <script>
         let arrow = document.querySelectorAll(".arrow");
@@ -181,18 +185,6 @@
             let mainContent = document.querySelector(".home-section");
             mainContent.classList.toggle("shifted");
         });
-
-
-        //login regis script
-        const loginBtn = document.querySelector(".btn-login");
-        const registerBtn = document.querySelector(".btn-register");
-        loginBtn.addEventListener("click", () => {
-            console.log("Login button clicked");
-        });
-        registerBtn.addEventListener("click", () => {
-            console.log("Register button clicked");
-        });
-
         //search script
         const searchBar = document.querySelector('input[type="text"]');
         searchBar.addEventListener("keyup", function (e) {
@@ -207,65 +199,6 @@
                 }
             });
         });
-
-
-        const createBoxBtn = document.querySelector("#create-box-btn");
-        let mainBox = document.querySelector(".main-box");
-
-        createBoxBtn.addEventListener("click", function () {
-            const newBox = document.createElement("div");
-            newBox.classList.add("box");
-            newBox.style.top = mainBox.getBoundingClientRect().top + 250 + "px"; // position new box 200px below main box
-
-            const boxImage = document.createElement("div");
-            boxImage.classList.add("box-image");
-            const image = document.createElement("img");
-            image.src = "image/tes.png";
-            image.alt = "Image description";
-            image.classList.add("box-image");
-            boxImage.appendChild(image);
-            newBox.appendChild(boxImage);
-
-            const boxContent = document.createElement("div");
-            boxContent.classList.add("box-content");
-            const boxTitle = document.createElement("div");
-            boxTitle.classList.add("box-title");
-            const titleLink = document.createElement("a");
-            titleLink.href = "#";
-            const titleHeading = document.createElement("h2");
-            titleHeading.textContent = "New Box Title";
-            titleLink.appendChild(titleHeading);
-            boxTitle.appendChild(titleLink);
-            boxContent.appendChild(boxTitle);
-            const boxDescription = document.createElement("div");
-            boxDescription.classList.add("box-description");
-            const descriptionText = document.createElement("p");
-            descriptionText.textContent =
-                "This is a brief description of the new box content.";
-            boxDescription.appendChild(descriptionText);
-            boxContent.appendChild(boxDescription);
-            newBox.appendChild(boxContent);
-
-            const boxButtons = document.createElement("div");
-            boxButtons.classList.add("box-buttons");
-            const viewsButton = document.createElement("button");
-            viewsButton.classList.add("box-button", "bx", "bx-show");
-            viewsButton.textContent = "100 Views";
-            const commentsButton = document.createElement("button");
-            commentsButton.classList.add("box-button", "bx", "bx-comment");
-            commentsButton.textContent = "10 Comments";
-            const followersButton = document.createElement("button");
-            followersButton.classList.add("box-button", "bx", "bx-user-plus");
-            followersButton.textContent = "10 Followers";
-            boxButtons.appendChild(viewsButton);
-            boxButtons.appendChild(commentsButton);
-            boxButtons.appendChild(followersButton);
-            newBox.appendChild(boxButtons);
-
-            mainBox.insertAdjacentElement("afterend", newBox);
-            mainBox = newBox; // update mainBox to reference the newly created box
-        });
-
     </script>
 </body>
 

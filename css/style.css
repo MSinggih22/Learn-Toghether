@@ -207,6 +207,7 @@
 .sidebar .profile-details .job {
   font-size: 12px;
 }
+
 .home-section {
   position: relative;
   background: #e4e9f7;
@@ -305,6 +306,14 @@
 .btn-register:hover {
   cursor: pointer;
 }
+.create-post-button {
+  display: inline-block;
+  position: absolute;
+  left: 150px;
+  z-index: 1;
+  text-decoration: none;
+  top: 30px;
+}
 
 .box {
   display: flex;
@@ -321,6 +330,7 @@
   padding: 20px;
   margin-bottom: 20px;
 }
+
 @media screen and (max-width: 1200px) {
   .box {
     right: calc((100% - 1000px) / 2);

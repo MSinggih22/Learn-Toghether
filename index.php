@@ -151,8 +151,8 @@
     </section>
 
     <div class="container">
-        <a href="#" class="btn btn-login">Log In</a>
-        <a href="#" class="btn btn-register">Sign Up</a>
+        <a href="login.php" class="btn btn-login">Log In</a>
+        <a href="register.php" class="btn btn-register">Sign Up</a>
     </div>
 
     <div class="search-container">

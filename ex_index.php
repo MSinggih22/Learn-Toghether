@@ -1,3 +1,40 @@
+<?php
+session_start();
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "lt";
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
+    // User is not logged in, redirect to the login page
+    header('Location: index.html');
+    exit();
+}
+
+// Get the user ID and session token from the session
+$user_id = $_SESSION['user_id'];
+$token = $_SESSION['token'];
+
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Prepare the SQL statement to fetch the session from the sessions table
+    $stmt = $pdo->prepare('SELECT * FROM sessions WHERE user_id = :user_id AND token = :token');
+    $stmt->execute(['user_id' => $user_id, 'token' => $token]);
+    $session = $stmt->fetch();
+
+    if (!$session) {
+        // Invalid session, redirect to the login page
+        header('Location: index.html');
+        exit();
+    }
+} catch (PDOException $e) {
+    die("Connection error: " . $e->getMessage());
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,27 +87,16 @@
             <li>
                 <div class="iocn-link">
                     <a href="#">
-                        <i class='bx bx-plug'></i>
-                        <span class="link_name">Faqs</span>
+                        <i class='bx bx-collection'></i>
+                        <span class="link_name">Customer Services</span>
                     </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
                 </div>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-compass'></i>
-                    <span class="link_name">Guidlines</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Explore</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-history'></i>
-                    <span class="link_name">Rules</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">History</a></li>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Customer Service</a></li>
+                    <li><a href="#">Faqs</a></li>
+                    <li><a href="#">Gudlines</a></li>
+                    <li><a href="#">Rules</a></li>
                 </ul>
             </li>
             <li>
@@ -82,24 +108,43 @@
                     <li><a class="link_name" href="#">Setting</a></li>
                 </ul>
             </li>
+            <li>
+                <?php
+                // Prepare the SQL statement to fetch the user from the users table
+                $stmt = $pdo->prepare('SELECT * FROM users WHERE id = :user_id');
+                $stmt->execute(['user_id' => $user_id]);
+                $user = $stmt->fetch();
+
+                if ($user) {
+                    // User found, display the username
+                    echo "<div class='profile-details'>";
+                    echo "<div class='profile-details'>";
+                    echo "<div class='profile-content'>";
+                    echo "<img src='image/tes.png' alt='profileImg'>";
+                    echo "</div>";
+                    echo "<div class='name-job'>";
+                    echo "<div class='profile_name'>";
+                    echo "<h2>" . $user['username'] . "</h2>";
+                    echo "</div>";
+                    echo  "</div>";
+                    echo "<a class='bx bx-log-out' href='logout.php'></a>";
+                    echo "</div>";
+                    echo "</li>";
+                } else {
+                    // User not found
+                    echo "<p>Unable to fetch user data.</p>";
+                }
+                ?>
         </ul>
     </div>
 
     <section class="home-section">
         <div class="home-content">
+            <a href="post-forum.php" class="create-post-button">Create New Post</a>
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <span class="text"></span>
             <div id="boxes">
                 <?php
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $dbname = "lt";
-                $conn = mysqli_connect($servername, $username, $password, $dbname);
-                if (!$conn) {
-                    die("Connection failed: " . mysqli_connect_error());
-                }
-
                 // select all data from the "boxes" table
                 $sql = "SELECT * FROM topics";
                 $result = mysqli_query($conn, $sql);
@@ -135,13 +180,7 @@
             </div>
         </div>
     </section>
-
-    <div class="container">
-        <a href="login.php" class="btn btn-login">Log In</a>
-        <a href="register.php" class="btn btn-register">Sign Up</a>
-    </div>
-
-    <div class="search-container">
+    <div class="search">
         <form action="#">
             <input type="text" placeholder="Search...">
             <button type="submit"><i class="bx bx-search"></i></button>

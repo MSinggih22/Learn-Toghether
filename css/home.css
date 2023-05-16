@@ -12,7 +12,7 @@
   height: 100%;
   width: 260px;
   background: #11101d;
-  z-index: 100;
+  z-index: 200000;
   transition: all 0.5s ease;
 }
 .sidebar.close {
@@ -211,7 +211,7 @@
 .home-section {
   position: relative;
   background: #e4e9f7;
-  height: 100vh;
+  height: 120vh;
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
@@ -312,7 +312,7 @@
   left: 150px;
   z-index: 1;
   text-decoration: none;
-  top: 30px;
+  top: 60px;
 }
 #boxes {
   position: absolute;
@@ -443,4 +443,218 @@
   font-size: 12px;
   line-height: 1.5;
   margin-bottom: 10px;
+}
+.search-container {
+  float: right;
+}
+
+.search-container {
+  position: absolute;
+  top: -6px;
+  right: 150px;
+  display: flex;
+  margin-top: 10px;
+  margin-right: 10px;
+  justify-content: flex-end;
+  align-items: center;
+  height: 60px;
+  z-index: 1;
+}
+.search {
+  position: absolute;
+  top: 20px;
+  float: right;
+  right: 10px;
+  z-index: 1;
+}
+
+#inside-boxes {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  top: 150px;
+  width: 80%;
+  height: 100%;
+  z-index: 5;
+}
+
+.inside-box,
+.user-box {
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  left: 150px;
+  z-index: 10;
+  width: 90%;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.inside-box {
+  top: 120px;
+  height: 100%;
+}
+.user-box {
+  top: 0px;
+  height: 100px;
+}
+.user-box-image {
+  flex: 0 0 auto;
+  margin-right: 10px;
+  margin-top: -4px;
+}
+
+.user-box-image img {
+  max-width: 80px !important;
+  max-height: 80px !important;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+.user-box-name {
+  flex: 1 1 auto;
+  font-weight: bold;
+}
+.user-box-forum-post-counted {
+  position: relative;
+  margin-top: 70px;
+  left: -920px;
+  font-size: 14px;
+}
+.user-box-button {
+  position: absolute;
+  top: 0;
+  left: 97%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 24px;
+  color: #000;
+}
+.user-box-button:hover {
+  cursor: pointer;
+  color: #000;
+}
+
+.user-box-forum-created,
+.user-box-forum-followers {
+  flex: 0 0 auto;
+  margin-left: 10px;
+  align-self: flex-end;
+}
+
+/* Adjust as needed for image positioning */
+.user-box-image img {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+/* Adjust as needed for text positioning */
+.user-box-name,
+.user-box-forum-created,
+.user-box-forum-followers {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 1200px) {
+  .inside-box {
+    right: calc((100% - 1000px) / 2);
+    width: 60%;
+    margin-right: 100px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .inside-box {
+    right: calc((100% - 800px) / 2);
+    width: 80%;
+    margin-right: -10px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .inside-box {
+    right: calc((100% - 600px) / 2);
+    width: 90%;
+  }
+}
+.inside-box-content {
+  margin-right: auto;
+}
+.inside-box-title {
+  font-size: 18px;
+  margin: 0;
+  margin-right: auto;
+  word-wrap: break-word;
+}
+
+.inside-box-title a {
+  text-decoration: none;
+  color: rgb(104, 121, 104);
+}
+.inside-box-title::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid #ccc;
+}
+.inside-box-description {
+  font-size: 10px;
+  margin-right: 0px;
+  color: #888;
+  word-wrap: break-word;
+}
+
+.inside-box-image {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin-left: -10px;
+  margin-top: 0;
+  margin-right: auto;
+}
+.inside-box-buttons-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(-50%, 50%);
+}
+
+.inside-box-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 10px;
+}
+
+.inside-box-button {
+  border: none;
+  background-color: transparent;
+  font-size: 14px;
+  color: #383636;
+  padding: 5px;
+  cursor: pointer;
+  border-top: 1px solid #ccc;
+  margin-right: auto;
+}
+
+.inside-box-button:first-child {
+  border-top: none;
+}
+
+.inside-box-button:hover {
+  color: #000;
+}
+
+.inside-box-buttons button:hover {
+  cursor: pointer;
+  color: #000;
 }

@@ -15,21 +15,15 @@ if ($connection->connect_error) {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $confirm_password = $_POST["confirmpassword"];
-    // TODO: Validate user inputs and perform server-side validation
-    // For this example, we'll just do basic client-side validation and assume all inputs are valid
 
-    // Check if the passwords match
     if ($password !== $confirm_password) {
       echo "Passwords do not match.";
       exit;
     }
-
-    // Insert the user data into the database
     $stmt = $connection->prepare('INSERT INTO users (username, email, password) VALUES (?, ?, ?)');
     $stmt->execute([$username, $email, $password]);
 
-    // Output a success message
-    echo "Registration successful!";
+    echo '<script>window.location.href = ".php";</script>';
   }
 ?>
 <link href="//db.onlinewebfonts.com/c/a4e256ed67403c6ad5d43937ed48a77b?family=Core+Sans+N+W01+35+Light" rel="stylesheet" type="text/css"/>
@@ -47,8 +41,6 @@ if ($connection->connect_error) {
     </form>
   </div>
 </div>
-
-
 
 <style>
   *{  

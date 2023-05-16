@@ -13,6 +13,7 @@ function closeSidebar() {
   document.body.classList.remove("sidebar-open");
 }
 
+
 // function createNewBox() {
 //   const newBox = document.createElement("div");
 //   newBox.classList.add("box");

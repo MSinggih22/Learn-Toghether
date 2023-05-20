@@ -13,59 +13,112 @@ function closeSidebar() {
   document.body.classList.remove("sidebar-open");
 }
 
+function truncateText() {
+  const descriptions = document.querySelectorAll(".box-description p");
+  const limit = 70;
 
-// function createNewBox() {
-//   const newBox = document.createElement("div");
-//   newBox.classList.add("box");
-//   newBox.style.top = mainBox.getBoundingClientRect().bottom + 200 + "px"; // position new box 200px below main box
+  descriptions.forEach((description) => {
+    const text = description.textContent.trim();
+    const words = text.split(" ");
+    const truncatedText = words.slice(0, limit).join(" ") + "...";
+    description.textContent = truncatedText;
+  });
+}
+truncateText();
 
-//   const boxImage = document.createElement("div");
-//   boxImage.classList.add("box-image");
-//   const image = document.createElement("img");
-//   image.src = "image/tes.png";
-//   image.alt = "Image description";
-//   image.classList.add("box-image");
-//   boxImage.appendChild(image);
-//   newBox.appendChild(boxImage);
+function toggleMenu() {
+  let arrowParent = this.parentElement.parentElement;
+  arrowParent.classList.toggle("showMenu");
+  let mainContent = document.querySelector(".section");
+  mainContent.classList.toggle("shifted");
+}
 
-//   const boxContent = document.createElement("div");
-//   boxContent.classList.add("box-content");
-//   const boxTitle = document.createElement("div");
-//   boxTitle.classList.add("box-title");
-//   const titleLink = document.createElement("a");
-//   titleLink.href = "#";
-//   const titleHeading = document.createElement("h2");
-//   titleHeading.textContent = "New Box Title";
-//   titleLink.appendChild(titleHeading);
-//   boxTitle.appendChild(titleLink);
-//   boxContent.appendChild(boxTitle);
-//   const boxDescription = document.createElement("div");
-//   boxDescription.classList.add("box-description");
-//   const descriptionText = document.createElement("p");
-//   descriptionText.textContent =
-//     "This is a brief description of the new box content.";
-//   boxDescription.appendChild(descriptionText);
-//   boxContent.appendChild(boxDescription);
-//   newBox.appendChild(boxContent);
+function toggleSidebar() {
+  let sidebar = document.querySelector(".sidebar");
+  sidebar.classList.toggle("close");
+  let mainContent = document.querySelector(".section");
+  mainContent.classList.toggle("shifted");
+}
 
-//   const boxButtons = document.createElement("div");
-//   boxButtons.classList.add("box-buttons");
-//   const viewsButton = document.createElement("button");
-//   viewsButton.classList.add("box-button", "bx", "bx-show");
-//   viewsButton.textContent = "100 Views";
-//   const commentsButton = document.createElement("button");
-//   commentsButton.classList.add("box-button", "bx", "bx-comment");
-//   commentsButton.textContent = "10 Comments";
-//   const followersButton = document.createElement("button");
-//   followersButton.classList.add("box-button", "bx", "bx-user-plus");
-//   followersButton.textContent = "10 Followers";
-//   boxButtons.appendChild(viewsButton);
-//   boxButtons.appendChild(commentsButton);
-//   boxButtons.appendChild(followersButton);
-//   newBox.appendChild(boxButtons);
+let arrows = document.querySelectorAll(".arrow");
+arrows.forEach((arrow) => {
+  arrow.addEventListener("click", toggleMenu);
+});
 
-//   mainBox.insertAdjacentElement("afterend", newBox);
-//   mainBox = newBox; // update mainBox to reference the newly created box
-// }
+// Attach event listener to sidebar button
+let sidebarBtn = document.querySelector(".bx-chevron-right");
+sidebarBtn.addEventListener("click", toggleSidebar);
 
-// createBoxBtn.addEventListener("click", createNewBox);
+var boxesContainer = document.getElementById("boxes");
+var paginationContainer = document.getElementById("pagination");
+var prevBtn = document.getElementById("prevBtn");
+var nextBtn = document.getElementById("nextBtn");
+
+var boxes = boxesContainer.getElementsByClassName("box");
+var totalPages = Math.ceil(boxes.length / 5);
+
+var currentPage = 1;
+var boxesPerPage = 5;
+
+function showPage(pageNumber) {
+  var startIndex = (pageNumber - 1) * boxesPerPage;
+  var endIndex = startIndex + boxesPerPage;
+
+  for (var i = 0; i < boxes.length; i++) {
+    boxes[i].classList.add("hidden");
+  }
+  for (var j = startIndex; j < endIndex; j++) {
+    if (j >= boxes.length) {
+      break;
+    }
+    boxes[j].classList.remove("hidden");
+  }
+
+  prevBtn.disabled = pageNumber === 1;
+  nextBtn.disabled = pageNumber === totalPages;
+}
+
+function goToNextPage() {
+  if (currentPage < totalPages) {
+    currentPage++;
+    showPage(currentPage);
+  }
+}
+
+function goToPrevPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    showPage(currentPage);
+  }
+}
+
+showPage(currentPage);
+prevBtn.addEventListener("click", goToPrevPage);
+nextBtn.addEventListener("click", goToNextPage);
+
+const loginBtn = document.querySelector(".btn-login");
+const registerBtn = document.querySelector(".btn-register");
+loginBtn.addEventListener("click", () => {
+  console.log("Login button clicked");
+});
+registerBtn.addEventListener("click", () => {
+  console.log("Register button clicked");
+});
+const searchBar = document.querySelector('input[type="text"]');
+searchBar.addEventListener("keyup", function (e) {
+  const term = e.target.value.toLowerCase();
+  const items = document.querySelectorAll("div.item");
+  Array.from(items).forEach(function (item) {
+    const title = item.textContent;
+    if (title.toLowerCase().indexOf(term) != -1) {
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+  });
+});
+
+function confirmDelete() {
+  return confirm("Are you sure you want to delete this topic?");
+}
+

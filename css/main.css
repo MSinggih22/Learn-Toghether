@@ -12,7 +12,7 @@
   height: 100%;
   width: 260px;
   background: #11101d;
-  z-index: 100;
+  z-index: 10;
   transition: all 0.5s ease;
 }
 .sidebar.close {
@@ -186,7 +186,7 @@
   object-fit: cover;
   border-radius: 16px;
   margin: 0 14px 0 12px;
-  background: #1d1b31;
+  background: #cecdd3;
   transition: all 0.5s ease;
 }
 .sidebar.close .profile-details img {
@@ -194,8 +194,9 @@
 }
 .sidebar .profile-details .profile_name,
 .sidebar .profile-details .job {
+  text-transform: capitalize;
   color: #fff;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
 }
@@ -207,52 +208,57 @@
 .sidebar .profile-details .job {
   font-size: 12px;
 }
-
-.home-section {
+.section {
   position: relative;
   background: #e4e9f7;
-  height: 100vh;
+  height: 120vh;
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
 }
-.sidebar.close ~ .home-section {
+.sidebar.close ~ .section {
   left: 78px;
   width: calc(100% - 78px);
 }
-.home-section .home-content {
+.section .content {
   height: 60px;
   display: flex;
   align-items: center;
 }
-.home-section .home-content .bx-chevron-right,
-.home-section .home-content .text {
+.section .content .bx-chevron-right,
+.section .content .text {
   color: #11101d;
   font-size: 50px;
-  position: relative;
-  top: 0px;
-  right: 0 px;
+  position: fixed;
+  top: 15px;
+  z-index: 20;
 }
-.home-section .home-content .bx-chevron-right {
+.section .content .bx-chevron-right {
+  margin: -10px;
+  cursor: pointer;
+  position: fixed;
+}
+.logout-button {
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+ margin-right: 20px;
+}
+.section .content .bx-chevron-left,
+.section .content .text {
+  color: #11101d;
+  font-size: 50px;
+  position: fixed;
+  top: 15px;
+  z-index: 20;
+}
+
+.section .content .bx-chevron-left {
   margin: -10px;
   cursor: pointer;
 }
 
-.home-section .home-content .bx-chevron-left,
-.home-section .home-content .text {
-  color: #11101d;
-  font-size: 50px;
-  position: relative;
-  top: 0px;
-  right: 0 px;
-}
-
-.home-section .home-content .bx-chevron-left {
-  margin: -10px;
-  cursor: pointer;
-}
-
-.home-section .home-content .text {
+.section .content .text {
   font-size: 26px;
   font-weight: 600;
 }
@@ -266,181 +272,74 @@
   .sidebar.close {
     width: 0;
   }
-  .home-section {
+  .section {
     left: 78px;
     width: calc(100% - 78px);
-    z-index: 100;
+    z-index: 9;
   }
-  .sidebar.close ~ .home-section {
+  .sidebar.close ~ .section {
     width: 100%;
     left: 0;
   }
 }
-
-.container {
-  display: flex;
-  justify-content: flex-end; /* Align buttons to the right */
-  align-items: center;
-  position: absolute; /* Add position absolute */
-  top: 10px; /* Adjust top to move it to the desired position */
-  right: 10px; /* Adjust right to move it to the desired position */
-  z-index: 9999; /* Add a high z-index to bring the container to the front */
-}
-
-.btn-login {
-  background-color: transparent;
-  color: #4a9ab9;
-  padding: 10px 0px;
-  margin-right: 10px;
-  text-decoration: none;
-}
-
-.btn-register {
-  background-color: transparent;
-  color: #4a9ab9;
-  padding: 10px 10px;
-  text-decoration: none;
-}
-
-.btn-login:hover,
-.btn-register:hover {
-  cursor: pointer;
-}
-.create-post-button {
-  display: inline-block;
-  position: absolute;
-  left: 150px;
-  z-index: 1;
-  text-decoration: none;
-  top: 30px;
-}
-#boxes {
-  position: absolute;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  top: 40px;
-  width: 80%;
-  z-index: 999;
-}
-
-.box {
+.pagenat {
   position: relative;
-  display: flex;
-  justify-content: flex-end;
-  border: 1px solid black;
-  padding: 10px;
-  margin-bottom: 10px;
-  top: 60px;
-  left: 150px;
-  z-index: 9999;
-  width: 200%;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 20px;
+  margin: auto;
+  z-index: 15;
 }
 
-@media screen and (max-width: 1200px) {
-  .box {
-    right: calc((100% - 1000px) / 2);
-    width: 60%;
-    margin-right: 100px;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .box {
-    right: calc((100% - 800px) / 2);
-    width: 80%;
-    margin-right: -10px;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .box {
-    right: calc((100% - 600px) / 2);
-    width: 90%;
-  }
-}
-.box-content {
-  margin-right: auto;
-}
-.box-title {
-  font-size: 18px;
-  margin: 0;
-  margin-right: auto;
-  word-wrap: break-word;
-}
-
-.box-title a {
-  text-decoration: none;
-  color: rgb(104, 121, 104);
-}
-.box-title::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  width: 100%;
-  border-top: 1px solid #ccc;
-}
-.box-description {
-  font-size: 10px;
-  margin-right: 0px;
-  color: #888;
-  word-wrap: break-word;
-}
-
-.box-image {
-  display: block;
-  width: 100px;
-  height: 100px;
-  margin-left: -10px;
-  margin-top: 0;
-  margin-right: auto;
-}
-.box-buttons-container {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: translate(-50%, 50%);
-}
-
-.box-buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin-top: 10px;
-}
-
-.box-button {
+.pagenat button {
   border: none;
   background-color: transparent;
-  font-size: 14px;
-  color: #383636;
+  font-size: 15px;
+  color: #0f6fec;
   padding: 5px;
+  margin: auto;
   cursor: pointer;
-  border-top: 1px solid #ccc;
-  margin-right: auto;
+  transition: color 0.3s ease; /* Add transition for color change */
 }
 
-.box-button:first-child {
-  border-top: none;
+.pagenat button:hover {
+  color: #ff00ff; /* Change the color on hover */
+  text-decoration: underline;
 }
 
-.box-button:hover {
-  color: #000;
+.box.hidden {
+  display: none;
+}
+.bottom-section {
+  background-color: #f1f1f1;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #660a0a;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 9999;
 }
 
-.box-buttons button:hover {
-  cursor: pointer;
-  color: #000;
+.bottom-section .container {
+  max-width: 100%x;
+  margin: 0 auto;
 }
 
-.box-summary {
-  font-size: 12px;
-  line-height: 1.5;
-  margin-bottom: 10px;
+.bottom-section .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10px;
+}
+
+.bottom-section .content p {
+  margin: 0;
+}
+.create-post-button {
+  display: flex;
+  position: absolute;
+  left: 214px;
+  z-index: 9999; /* Increase the z-index value to make it appear above other elements */
+  text-decoration: none;
+  top: 60px;
 }

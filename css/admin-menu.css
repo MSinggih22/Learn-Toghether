@@ -1,0 +1,57 @@
+#boxes {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  margin-left: 0;
+  padding: 10px;
+  top: 100px;
+  right: 80px;
+  width: 100%;
+  z-index: 5;
+  justify-content: center;
+}
+.box {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  border: 1px solid black;
+  padding: 10px;
+  z-index: 9;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+h1 {
+  margin-left: 50px;
+  margin-top: 6px;
+  align-self: flex-start;
+}
+.dash-users,
+.dash-topics,
+.dash-comments {
+  box-sizing: border-box;
+  border: 1px solid #000;
+  background-color: #f2f2f2;
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+  height: 100px;
+  transition: background-color 0.3s ease; /* Animasi perubahan latar belakang */
+}
+
+.dash-users:hover,
+.dash-topics:hover,
+.dash-comments:hover {
+  background-color: #ccc; /* Latar belakang berubah saat hover */
+}
+
+ h3{
+    padding: 10px;
+    text-align: center;
+}
+h2{
+    text-align: center;
+}

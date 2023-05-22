@@ -2,6 +2,26 @@
 session_start();
 include '../../db/database-connect.php';
 
+$user_id = $_SESSION['user_id'];
+$token = $_SESSION['token'];
+
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Prepare the SQL statement to fetch the session from the sessions table
+    $stmt = $pdo->prepare('SELECT * FROM sessions WHERE user_id = :user_id AND token = :token');
+    $stmt->execute(['user_id' => $user_id, 'token' => $token]);
+    $session = $stmt->fetch();
+
+    if (!$session) {
+        // Invalid session, redirect to the login page
+        header('Location: index.html');
+        exit();
+    }
+} catch (PDOException $e) {
+    die("Connection error: " . $e->getMessage());
+}
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -71,8 +91,7 @@ mysqli_close($conn);
 
 <head>
     <title>Learn Together</title>
-    <link rel="stylesheet" href="../../css/forum.css">
-    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/index.css">
     <link rel="stylesheet" href="../../css/login.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -85,40 +104,42 @@ mysqli_close($conn);
         </div>
         <ul class="nav-links">
             <li>
-                <a href="index.html">
+                <a href="../home/home.php">
                     <i class='bx bx-home'></i>
                     <span class="link_name">Home</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="index.html">Home</a></li>
+                    <li><a class="link_name" href="../home/home.php">Home</a></li>
                 </ul>
             </li>
+
             <li>
                 <div class="iocn-link">
-                    <a href="index.php">
+                    <a href="../../php/forum/logined-forum.php">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Forum</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Forum</a></li>
-                    <li><a href="forum-category.php">Category</a></li>
-                    <li><a href="#">Trending</a></li>
+                    <li><a class="link_name" href="../../php/forum/logined-forum.php">Forum</a></li>
+                    <li><a href="logined-forum-category.php">Category</a></li>
+                    <li><a href="logined-forum-trending.php">Trending</a></li>
                 </ul>
             </li>
+
             <li>
-                <a href="#">
+                <a href="../timeline/timeline.php">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="link_name">Timeline</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Timeline</a></li>
+                    <li><a class="link_name" href="../timeline/timeline.php">Timeline</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="../customerservice/CS.php">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Customer Services</span>
                     </a>
@@ -126,25 +147,52 @@ mysqli_close($conn);
                 </div>
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Customer Service</a></li>
-                    <li><a href="#">Faqs</a></li>
-                    <li><a href="#">Gudlines</a></li>
-                    <li><a href="#">Rules</a></li>
+                    <li><a href="../customerservice/faqs.php">Faqs</a></li>
+                    <li><a href="../customerservice/guidlines.php">Gudlines</a></li>
+                    <li><a href="../customerservice/rules.php">Rules</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="../settings/settings.php">
                         <i class='bx bx-cog'></i>
                         <span class="link_name">Settings</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
-                <ul class="sub-menu blank">
-                    <li>
-                        <a class="link_name" href="#">Settings</a>
-                    </li>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Settings</a></li>
+                    <li><a href="../settings/profile-settings.php">Profile Settings</a></li>
+                    <li><a href="../settings/forum-settings.php">Topics Setting</a></li>
+                    <li><a href="../settings/account-settings.php">Account Settings</a></li>
                 </ul>
             </li>
+
+            <?php
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE id = :user_id');
+            $stmt->execute(['user_id' => $user_id]);
+            $user = $stmt->fetch();
+
+            if ($user) {
+                echo "<div class='profile-details'>";
+                echo "<div class='profile-details'>";
+                echo "<div class='profile-content'>";
+                echo "<img src='data:image/jpeg;base64," . base64_encode($user['users_image']) . "' alt='profileImage' class='profile-image'>";
+                echo "</div>";
+                echo "<div class='name-job'>";
+                echo "<div class='profile_name'>";
+                echo "<h2>" . $user['username'] . "</h2>";
+                echo "</div>";
+                echo  "</div>";
+                echo "<a class='bx bx-log-out logout-button' href='../logout.php'></a>";
+                echo  "</div>";
+                echo "</div>";
+                echo "</li>";
+            } else {
+                echo "<p>Unable to fetch wuser data.</p>";
+            }
+            ?>
+        </ul>
     </div>
     <section class="section">
         <div class="content">
@@ -156,7 +204,7 @@ mysqli_close($conn);
                 <h3>Your Profile</h3>
                 <p>Username: <?php echo $username; ?></p>
                 <p>Email: <?php echo $email; ?></p>
-                <img src="<?php echo $users_image; ?>" alt="Profile Image" width="200" height="200">
+                <?php echo "<img src='data:image/jpeg;base64," . base64_encode($users_image) . "' alt='profileImage' class='profile-image' width='0' height='0'>"; ?>
                 <form class="acc-set" method="POST" action="account-settings.php" enctype="multipart/form-data">
                     <label for="username">Change Username:</label>
                     <input type="text" id="username" name="username" value="<?php echo $username; ?>" required placeholder="Enter new username">
@@ -185,7 +233,7 @@ mysqli_close($conn);
                 <p><?php echo $submitMessage; ?></p>
             </div>
         </div>
-    </section>  
+    </section>
 
 
 

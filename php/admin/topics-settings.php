@@ -4,10 +4,9 @@
 <head>
     <title>Learn Together</title>
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/index.css">
     <link rel="stylesheet" href="../../css/forum.css">
 </head>
-
 <body>
     <div class="sidebar close">
         <div class="logo-details">

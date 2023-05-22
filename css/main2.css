@@ -211,8 +211,7 @@
 .section {
   position: relative;
   background: #e4e9f7;
-  height: auto;
-  min-height: 150vh !important; 
+  height: 120vh;
   left: 260px;
   width: calc(100% - 260px);
   transition: all 0.5s ease;
@@ -222,11 +221,12 @@
   width: calc(100% - 78px);
 }
 .section .content {
-
   display: flex;
   align-items: center;
 }
-
+.section .content .bx-chevron-right {
+  height: 60px;
+}
 .section .content .bx-chevron-right,
 .section .content .text {
   color: #11101d;

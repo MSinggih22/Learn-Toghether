@@ -1,15 +1,6 @@
 <?php
 session_start();
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "lt";
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
-    header('Location: ../login.php');
-    exit();
-}
+include '../../db/database-connect.php';
 
 $user_id = $_SESSION['user_id'];
 $token = $_SESSION['token'];
@@ -18,7 +9,6 @@ try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Prepare the SQL statement to fetch the session from the sessions table
     $stmt = $pdo->prepare('SELECT * FROM sessions WHERE user_id = :user_id AND token = :token');
     $stmt->execute(['user_id' => $user_id, 'token' => $token]);
     $session = $stmt->fetch();
@@ -68,19 +58,19 @@ try {
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="forum.php">Forum</a></li>
-                    <li><a href="forum-category.php">Category</a></li>
-                    <li><a href="forum-trending.php">Trending</a></li>
+                    <li><a class="link_name" href="logined-forum.php">Forum</a></li>
+                    <li><a href="logined-forum-category.php">Category</a></li>
+                    <li><a href="logined-forum-trending.php">Trending</a></li>
                 </ul>
             </li>
 
             <li>
-                <a href="../timeline/timeline.php">
+                <a href="../timeline/logined-timeline.php">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="link_name">Timeline</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="../timeline/timeline.php">Timeline</a></li>
+                    <li><a class="link_name" href="../timeline/logined-timeline.php">Timeline</a></li>
                 </ul>
             </li>
             <li>
@@ -123,7 +113,7 @@ try {
                 echo "<div class='profile-details'>";
                 echo "<div class='profile-details'>";
                 echo "<div class='profile-content'>";
-                echo "<img src='" . $user['users_image'] . "' alt='profileImg'>";
+                echo "<img src='data:image/jpeg;base64," . base64_encode($user['users_image']) . "' alt='profileImage' class='profile-image'>";
                 echo "</div>";
                 echo "<div class='name-job'>";
                 echo "<div class='profile_name'>";

@@ -1,10 +1,33 @@
+<?php
+session_start();
+$user_id = $_SESSION['user_id'];
+$token = $_SESSION['token'];
+
+try {
+    include '../../db/database-connect.php';
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $stmt = $pdo->prepare('SELECT * FROM sessions WHERE user_id = :user_id AND token = :token');
+    $stmt->execute(['user_id' => $user_id, 'token' => $token]);
+    $session = $stmt->fetch();
+
+    if (!$session) {
+        header('Location: index.html');
+        exit();
+    }
+} catch (PDOException $e) {
+    die("Connection error: " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Learn Together</title>
+    <title>Learn Together-Admin Menu</title>
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/index.css">
     <link rel="stylesheet" href="../../css/admin-menu.css">
 </head>
 
@@ -34,32 +57,56 @@
                 </div>
                 <ul class="sub-menu">
                     <li><a class="link_name" href="topics-admin.php">Forum Settings</a></li>
-                    <li><a href="topics-update.php">Update Topics</a></li>
+                    <li><a href="topics-update.php">Update Forum</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="timeline-settings.php">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="link_name">Timeline-Settings</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Timeline-Settings</a></li>
+                    <li><a class="link_name" href="timeline-settings.php">Timeline-Settings</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="user-settings.php">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Users Settings</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Users Settings</a></li>
-                    <li><a href="#">Delete User</a></li>
-                    <li><a href="#">Edit User Profile</a></li>
+                    <li><a class="link_name" href="user-settings.php">Users Settings</a></li>
+                    <li><a href="user-delete.php">Delete User</a></li>
+                    <li><a href="user-edit.php">Edit User Profile</a></li>
                 </ul>
             </li>
+            <?php
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE id = :user_id');
+            $stmt->execute(['user_id' => $user_id]);
+            $user = $stmt->fetch();
+
+            if ($user) {
+                echo "<div class='profile-details'>";
+                echo "<div class='profile-details'>";
+                echo "<div class='profile-content'>";
+                echo "<img src='data:image/jpeg;base64," . base64_encode($user['users_image']) . "' alt='profileImage' class='profile-image'>";
+                echo "</div>";
+                echo "<div class='name-job'>";
+                echo "<div class='profile_name'>";
+                echo "<h2>" . $user['username'] . "</h2>";
+                echo "</div>";
+                echo  "</div>";
+                echo "<a class='bx bx-log-out logout-button' href='../logout.php'></a>";
+                echo  "</div>";
+                echo "</div>";
+                echo "</li>";
+            } else {
+                echo "<p>Unable to fetch wuser data.</p>";
+            }
+            ?>
         </ul>
     </div>
     <div class="section">
@@ -79,6 +126,10 @@
                 $result = mysqli_query($conn, $query);
                 $topicCount = mysqli_fetch_assoc($result)['topic_count'];
 
+                $query = "SELECT COUNT(*) as timeline_count FROM timeline";
+                $result = mysqli_query($conn, $query);
+                $timelinecount = mysqli_fetch_assoc($result)['timeline_count'];
+
                 mysqli_close($conn);
                 ?>
                 <div class="dash-users">
@@ -90,8 +141,8 @@
                     <h3><?php echo $topicCount; ?></h2>
                 </div>
                 <div class="dash-comments">
-                    <h2 class="bx bx-comment"> Comment :</h2>
-                    <h3><?php echo $userCount; ?></h2>
+                    <h2 class="bx bx-comment"> Timeline:</h2>
+                    <h3><?php echo $timelinecount; ?></h2>
                 </div>
             </div>
         </div>

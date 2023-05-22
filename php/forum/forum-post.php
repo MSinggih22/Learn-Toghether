@@ -99,7 +99,7 @@ if (mysqli_num_rows($result) > 0) {
 
 <head>
 	<title>Forum</title>
-	<link rel="stylesheet" href="../../css/main.css">
+	<link rel="stylesheet" href="../../css/index.css">
 	<link rel="stylesheet" href="../../css/post.css">
 	<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>

@@ -38,7 +38,7 @@ try {
 <head>
     <title>Forum</title>
     <link rel="stylesheet" href="../../css/logined-inside-forum.css">
-    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/index.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -108,9 +108,9 @@ try {
                 </div>
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Settings</a></li>
-                    <li><a href="../settings/">Profile Settings</a></li>
-                    <li><a href="../settings/">Topics Setting</a></li>
-                    <li><a href="../settings/">Account Settings</a></li>
+                    <li><a href="../settings/profile-settings.php">Profile Settings</a></li>
+                    <li><a href="../settings/forum-settings.php">Topics Setting</a></li>
+                    <li><a href="../settings/account-settings.php">Account Settings</a></li>
                 </ul>
             </li>
             <?php
@@ -124,7 +124,7 @@ try {
                 echo "<div class='profile-details'>";
                 echo "<div class='profile-details'>";
                 echo "<div class='profile-content'>";
-                echo "<img src='image/tes.png' alt='profileImg'>";
+                echo "<img src='data:image/jpeg;base64," . base64_encode($user['users_image']) . "' alt='profileImage' class='profile-image'>";
                 echo "</div>";
                 echo "<div class='name-job'>";
                 echo "<div class='profile_name'>";
@@ -160,6 +160,7 @@ try {
                 $stmt->bind_param("i", $forumID);
                 $stmt->execute();
                 $result = $stmt->get_result();
+                
                 if ($result->num_rows > 0) {
                     $row = $result->fetch_assoc();
                     $img = $row["img"];
@@ -175,7 +176,7 @@ try {
                         $authorRow = $authorResult->fetch_assoc();
                         echo "<div class='profile-box'>";
                         echo "<div class='profile-box-image'>";
-                        echo "<img src='" . $authorRow['users_image'] . "' alt='Author Image'>";
+                        echo "<img src='data:image/jpeg;base64," . base64_encode($authorRow['users_image']) . "' alt='authorImage' class='profile-image'>";
                         echo "</div>";
                         echo "<div class='profile-box-name'>";
                         echo "<p class='username'>" . $authorRow['username'] . "</p>";
@@ -307,7 +308,7 @@ try {
                         while ($commentRow = $commentsResult->fetch_assoc()) {
                             echo "<div class='comment'>";
                             echo "<div class='comment-user'>";
-                            echo "<img src='" . $commentRow['users_image'] . "' alt='User Profile Image'>";
+                            echo "<img src='data:image/jpeg;base64," . base64_encode($commentRow['users_image']) . "' alt='commentImage' class='profile-image'>";
                             echo "<p>" . $commentRow['username'] . "</p>";
                             echo "</div>";
                             echo "<p class='comment-text'>" . $commentRow['comment'] . "</p>";

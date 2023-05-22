@@ -4,7 +4,7 @@
 <head>
     <title>Forum</title>
     <link rel="stylesheet" href="../../css/inside-forums.css">
-    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/index.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -16,40 +16,42 @@
         </div>
         <ul class="nav-links">
             <li>
-                <a href="index.html">
+                <a href="../home/home.php">
                     <i class='bx bx-home'></i>
                     <span class="link_name">Home</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="index.html">Home</a></li>
+                    <li><a class="link_name" href="../home/home.php">Home</a></li>
                 </ul>
             </li>
+
             <li>
                 <div class="iocn-link">
-                    <a href="index.php">
+                    <a href="forum.php">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Forum</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Forum</a></li>
+                    <li><a class="link_name" href="forum.php">Forum</a></li>
                     <li><a href="forum-category.php">Category</a></li>
-                    <li><a href="#">Trending</a></li>
+                    <li><a href="forum-trending.php">Trending</a></li>
                 </ul>
             </li>
+
             <li>
-                <a href="#">
+                <a href="../timeline/timeline.php">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="link_name">Timeline</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Timeline</a></li>
+                    <li><a class="link_name" href="../timeline/timeline.php">Timeline</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="../customerservice/CS.php">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Customer Services</span>
                     </a>
@@ -57,22 +59,21 @@
                 </div>
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Customer Service</a></li>
-                    <li><a href="#">Faqs</a></li>
-                    <li><a href="#">Gudlines</a></li>
-                    <li><a href="#">Rules</a></li>
+                    <li><a href="../customerservice/faqs.php">Faqs</a></li>
+                    <li><a href="../customerservice/guidlines.php">Gudlines</a></li>
+                    <li><a href="../customerservice/rules.php">Rules</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="../settings/settings.php">
                         <i class='bx bx-cog'></i>
                         <span class="link_name">Settings</span>
                     </a>
-                    <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu blank">
                     <li>
-                        <a class="link_name" href="#">Settings</a>
+                        <a class="link_name" href="../settings/settings.php">Settings</a>
                     </li>
                 </ul>
             </li>
@@ -130,7 +131,7 @@
                         $authorRow = $authorResult->fetch_assoc();
                         echo "<div class='profile-box'>";
                         echo "<div class='profile-box-image'>";
-                        echo "<img src='" . $authorRow['users_image'] . "' alt='Author Image'>";
+                        echo "<img src='data:image/jpeg;base64," . base64_encode($authorRow['users_image']) . "' alt='authorImage' class='profile-image'>";
                         echo "</div>";
                         echo "<div class='profile-box-name'>";
                         echo "<p class='username'>" . $authorRow['username'] . "</p>";
@@ -173,7 +174,7 @@
                         while ($commentRow = $commentsResult->fetch_assoc()) {
                             echo "<div class='comment'>";
                             echo "<div class='comment-user'>";
-                            echo "<img src='" . $commentRow['users_image'] . "' alt='User Profile Image'>";
+                            echo "<img src='data:image/jpeg;base64," . base64_encode($commentRow['users_image']) . "' alt='commentImage' class='profile-image'>";
                             echo "<p>" . $commentRow['username'] . "</p>";
                             echo "</div>";
                             echo "<p class='comment-text'>" . $commentRow['comment'] . "</p>";

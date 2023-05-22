@@ -1,0 +1,100 @@
+.box {
+  position: relative;
+  border: 1px solid black;
+  z-index: 9;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  padding: 10px;
+  max-width: 320% !important;
+  left: 110px;
+  top: 100px;
+}
+.box-content {
+  margin: auto;
+  margin-left: 8%;
+}
+.profile-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  position: relative;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+}
+.box-image {
+  flex-shrink: 0; /* Menghindari gambar menjadi terlalu kecil */
+}
+
+.box-content {
+  display: flex;
+  flex-direction: column;
+}
+.box-content h3 {
+  position: absolute;
+  top: 15px;
+  left: 80px;
+}
+
+.box-description {
+  text-align: justify;
+  max-width: 1500px;
+}
+
+.comment {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comment p {
+  margin: 0;
+}
+
+.comment-username {
+  font-weight: bold;
+}
+.btn-login {
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  color: #0f6fec;
+  padding: 5px;
+  margin: auto;
+  cursor: pointer;
+  padding: 10px 10px;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+.btn-register {
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  color: #0f6fec;
+  padding: 5px;
+  margin: auto;
+  cursor: pointer;
+  padding: 10px 10px;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+.btn-login:hover,
+.btn-register:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 9;
+}
+.show-comment-button,
+.add-comment-button{
+  width: 100px;
+}

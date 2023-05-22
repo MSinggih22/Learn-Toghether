@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>Learn Together</title>
-    <link rel="stylesheet" href="../../css/forum.css">
+    <title>LT-Timeline</title>
+    <link rel="stylesheet" href="../../css/timeline.css">
     <link rel="stylesheet" href="../../css/index.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -24,7 +24,6 @@
                     <li><a class="link_name" href="../home/home.php">Home</a></li>
                 </ul>
             </li>
-
             <li>
                 <div class="iocn-link">
                     <a href="forum.php">
@@ -83,75 +82,85 @@
         <div class="content">
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <span class="text"></span>
-            <div id="boxes">
+            <div class="boxes">
                 <?php
                 include '../../db/database-connect.php';
+                function getComments($conn, $timeline_id)
+                {
+                    $commentSql = "SELECT c.comments, u.username AS comment_username
+                       FROM timeline_comments AS c
+                       JOIN users AS u ON c.user_id = u.id
+                       WHERE c.timeline_id = {$timeline_id}";
+                    $commentResult = mysqli_query($conn, $commentSql);
 
-                $search = "";
-                if (isset($_GET['search'])) {
-                    $search = $_GET['search'];
+                    $comments = array();
+                    while ($commentRow = mysqli_fetch_assoc($commentResult)) {
+                        $comment = array(
+                            'comment' => $commentRow['comments'],
+                            'comment_username' => $commentRow['comment_username']
+                        );
+                        $comments[] = $comment;
+                    }
+
+                    return $comments;
                 }
-
-                $sql = "SELECT * FROM topics WHERE title LIKE '%$search%'";
+                $sql = "SELECT t.id, t.user_id, t.description, u.username, u.users_image
+            FROM timeline AS t
+            JOIN users AS u ON t.user_id = u.id";
                 $result = mysqli_query($conn, $sql);
 
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
-                        $img = $row["img"];
-                        $topic_id = $row['id'];
-                        $topicID = $row['id'];
-
-                        $commentStmt = $conn->prepare("SELECT COUNT(*) AS comment_count FROM topics_comments WHERE topic_id = ?");
-                        $commentStmt->bind_param("i", $topicID);
-                        $commentStmt->execute();
-                        $commentResult = $commentStmt->get_result();
-                        $commentRow = $commentResult->fetch_assoc();
-                        $commentCount = $commentRow['comment_count'];
-
-                        $viewsStmt = $conn->prepare("SELECT COUNT(*) AS views_count FROM topics_views WHERE topic_id = ?");
-                        $viewsStmt->bind_param("i", $topicID);
-                        $viewsStmt->execute();
-                        $viewsResult = $viewsStmt->get_result();
-                        $viewsRow = $viewsResult->fetch_assoc();
-                        $viewsCount = $viewsRow['views_count'];
-
-                        $followersStmt = $conn->prepare("SELECT COUNT(*) AS followers_count FROM topics_followers WHERE topic_id = ?");
-                        $followersStmt->bind_param("i", $topicID);
-                        $followersStmt->execute();
-                        $followersResult = $followersStmt->get_result();
-                        $followersRow = $followersResult->fetch_assoc();
-                        $followersCount = $followersRow['followers_count'];
-
+                        $timeline_id = $row['id'];
+                        $user_id = $row['user_id'];
+                        $username = $row['username'];
+                        $description = $row['description'];
+                        $profile_image = $row['users_image'];
                         echo "<div class='box'>";
                         echo "<div class='box-image'>";
-                        echo "<img src='data:image/jpeg;base64," . base64_encode($img) . "' alt='Image description' class='box-image'>";
+                        echo "<img src='data:image/jpeg;base64," . base64_encode($profile_image) . "' alt='Profile Image' class='profile-image'>";
                         echo "</div>";
                         echo "<div class='box-content'>";
                         echo "<div class='box-title'>";
-                        echo "<a href='inside-forum.php?id=" . $row['id'] . "'>"; // Modify the anchor tag with the appropriate forum page URL
-                        echo "<h2>" . $row['title'] . "</h2>";
-                        echo "</a>";
+                        echo "<h3>{$username}</h3>";
                         echo "</div>";
                         echo "<div class='box-description'>";
-                        echo "<p>" . $row['description'] . "</p>";
+                        echo "<p>{$description}</p>";
                         echo "</div>";
-                        echo "</div>";
-                        echo "<div class='box-buttons'>";
-                        echo "<button class='box-button bx bx-show'>" . $viewsCount . " Views</button>";
-                        echo "<button class='box-button bx bx-comment'>" . $commentCount . " Comments</button>";
-                        echo "<button class='box-button bx bx-user-plus'>" . $followersCount . " Followers</button>";
+
+                        // Query untuk mendapatkan komentar dari table timeline_comments
+                        $commentSql = "SELECT c.comments, u.username AS comment_username
+                         FROM timeline_comments AS c
+                         JOIN users AS u ON c.user_id = u.id
+                         WHERE c.timeline_id = {$user_id}";
+                        $commentResult = mysqli_query($conn, $commentSql);
+
+                        $comments = getComments($conn, $timeline_id);
+
+                        if (!empty($comments)) {
+                            echo "<button onclick='toggleComments(this)' class='show-comment-button'>Show Comment</button>";
+                            echo "<div class='box-comments' style='display: none;'>";
+                            foreach ($comments as $comment) {
+                                $commentContent = $comment['comment'];
+                                $commentUsername = $comment['comment_username'];
+                                echo "<div class='comment'>";
+                                echo "<p>Comment:</p>";
+                                echo "<span class='comment-username'>{$commentUsername}: </span>";
+                                echo "<p>{$commentContent}</p>";
+                                echo "</div>";
+                            }
+                            echo "</div>";
+                        } else {
+                            echo "<div class='box-comments' style='display: none;'></div>";
+                        }
                         echo "</div>";
                         echo "</div>";
                     }
                 } else {
-                    echo "<p>No topics found.</p>";
+                    echo "<p>No timeline entries found.</p>";
                 }
                 mysqli_close($conn);
                 ?>
-                <div class="pagenat" id="pagination">
-                    <button id="prevBtn" disabled>Prev</button>
-                    <button id="nextBtn">Next</button>
-                </div>
             </div>
         </div>
     </section>
@@ -159,16 +168,18 @@
         <a href="../login.php" class="btn btn-login">Log In</a>
         <a href="../register.php" class="btn btn-register">Sign Up</a>
     </div>
-
-    <div class="search-container">
-        <form action="#" method="GET">
-            <input type="text" name="search" placeholder="Search...">
-            <button type="submit"><i class="bx bx-search"></i></button>
-        </form>
-    </div>
-    <script src="../../js/script.js"></script>
-    <Script>
-        let arrow = document.querySelectorAll(".arrow");
+    <script>
+        function toggleComments(button) {
+            var commentsDiv = button.nextElementSibling;
+            if (commentsDiv.style.display === "none") {
+                commentsDiv.style.display = "block";
+                button.innerText = "Hide Comment";
+            } else {
+                commentsDiv.style.display = "none";
+                button.innerText = "Show Comment";
+            }
+        }
+        ow = document.querySelectorAll(".arrow");
         for (var i = 0; i < arrow.length; i++) {
             arrow[i].addEventListener("click", (e) => {
                 let arrowParent = e.target.parentElement.parentElement;
@@ -185,7 +196,17 @@
             let mainContent = document.querySelector(".section");
             mainContent.classList.toggle("shifted");
         });
-    </Script>
+
+        function chonclick(element) {
+            let currentClass = element.getAttribute("class");
+            if (currentClass.includes("bx-chevron-right")) {
+                element.setAttribute("class", "bx bx-chevron-left");
+            } else {
+                element.setAttribute("class", "bx bx-chevron-right");
+            }
+        }
+    </script>
+    <script src="../../js/script.js"></script>
 
 </body>
 

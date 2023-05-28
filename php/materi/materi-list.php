@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/forum.css">
+    <link rel="stylesheet" href="../../css/materi.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <title>LT-Forum</title>
+    <title>LT-Materi</title>
 </head>
 
 <body>
@@ -30,16 +30,16 @@
 
             <li>
                 <div class="iocn-link">
-                    <a href="forum.php">
+                    <a href="../forum/forum.php">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Forum</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="forum.php">Forum</a></li>
-                    <li><a href="category.php">Category</a></li>
-                    <li><a href="trending.php">Trending</a></li>
+                    <li><a class="link_name" href="../forum/forum.php">Forum</a></li>
+                    <li><a href="../forum/category.php">Category</a></li>
+                    <li><a href="../forum/trending.php">Trending</a></li>
                 </ul>
             </li>
 
@@ -73,10 +73,9 @@
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Customer Service</a></li>
                     <li><a href="../CS/faqs.php">Faqs</a></li>
-                    <li><a href="../CS/guidlines.php">Gudelines</a></li>
+                    <li><a href="../CS/guidlines.php">Gudlines</a></li>
                 </ul>
             </li>
-
         </ul>
     </div>
     <section class="section">
@@ -92,54 +91,21 @@
                     $search = $_GET['search'];
                 }
 
-                $sql = "SELECT * FROM topics WHERE title LIKE '%$search%'";
+                $sql = "SELECT * FROM Materi WHERE title_materi LIKE '%$search%'";
                 $result = mysqli_query($conn, $sql);
 
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
-                        $img = $row["img"];
-                        $topic_id = $row['id_topics'];
-                        $topicID = $row['id_topics'];
-
-                        $commentStmt = $conn->prepare("SELECT COUNT(*) AS comment_count FROM topics_comments WHERE topic_id = ?");
-                        $commentStmt->bind_param("i", $topicID);
-                        $commentStmt->execute();
-                        $commentResult = $commentStmt->get_result();
-                        $commentRow = $commentResult->fetch_assoc();
-                        $commentCount = $commentRow['comment_count'];
-
-                        $viewsStmt = $conn->prepare("SELECT COUNT(*) AS views_count FROM topics_views WHERE topic_id = ?");
-                        $viewsStmt->bind_param("i", $topicID);
-                        $viewsStmt->execute();
-                        $viewsResult = $viewsStmt->get_result();
-                        $viewsRow = $viewsResult->fetch_assoc();
-                        $viewsCount = $viewsRow['views_count'];
-
-                        $followersStmt = $conn->prepare("SELECT COUNT(*) AS followers_count FROM topics_followers WHERE topic_id = ?");
-                        $followersStmt->bind_param("i", $topicID);
-                        $followersStmt->execute();
-                        $followersResult = $followersStmt->get_result();
-                        $followersRow = $followersResult->fetch_assoc();
-                        $followersCount = $followersRow['followers_count'];
-
                         echo "<div class='box'>";
-                        echo "<div class='box-image'>";
-                        echo "<img src='data:image/jpeg;base64," . base64_encode($img) . "' alt='Image description' class='box-image'>";
-                        echo "</div>";
                         echo "<div class='box-content'>";
                         echo "<div class='box-title'>";
-                        echo "<a href='inside-forum.php?id=" . $row['id_topics'] . "'>"; // Modify the anchor tag with the appropriate forum page URL
-                        echo "<h2>" . $row['title'] . "</h2>";
+                        echo "<a href='inside-materi.php?id=" . $row['id_materi'] . "'>"; // Modify the anchor tag with the appropriate forum page URL
+                        echo "<h2>" . $row['title_materi'] . "</h2>";
                         echo "</a>";
                         echo "</div>";
                         echo "<div class='box-description'>";
                         echo "<p>" . $row['description'] . "</p>";
                         echo "</div>";
-                        echo "</div>";
-                        echo "<div class='box-buttons'>";
-                        echo "<button class='box-button bx bx-show'>" . $viewsCount . " Views</button>";
-                        echo "<button class='box-button bx bx-comment'>" . $commentCount . " Comments</button>";
-                        echo "<button class='box-button bx bx-user-plus'>" . $followersCount . " Followers</button>";
                         echo "</div>";
                         echo "</div>";
                     }
@@ -155,6 +121,8 @@
             </div>
         </div>
     </section>
+
+
     <div class="container">
         <a href="../login.php" class="btn btn-login">Log In</a>
         <a href="../register.php" class="btn btn-register">Sign Up</a>

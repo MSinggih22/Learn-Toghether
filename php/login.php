@@ -1,6 +1,6 @@
 <?php
 // Connect to the database (replace 'dbname', 'username', and 'password' with your own credentials)
-include '../db/database-connect.php';
+include 'db/db-connect.php';
 
 $connection = new mysqli($servername, $username, $password, $dbname);
 if ($connection->connect_error) {
@@ -25,11 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user) {
         $token = bin2hex(random_bytes(16));
         $stmt = $connection->prepare('INSERT INTO sessions (user_id, token) VALUES (?, ?)');
-        $stmt->bind_param('ss', $user['id'], $token);
+        $stmt->bind_param('ss', $user['id_user'], $token);
         $stmt->execute();
         $stmt->close();
 
-        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_id'] = $user['id_user'];
         $_SESSION['token'] = $token;
 
         // Check if the logged-in user is an admin
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: admin/admin-menu.php");
         } else {
             // Redirect the user to the inside page
-            header("Location: forum/logined-forum.php");
+            header("Location: forum/log-forum.php");
         }
         exit();
     } else {
@@ -53,14 +53,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
     <title>Learn Together</title>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/login.css">
-    <script src="js/script.js"></script>
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
-
     <div class="sidebar close">
         <div class="logo-details">
             <i class='bx bx-book'></i>
@@ -68,40 +66,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <ul class="nav-links">
             <li>
-                <a href="index.html">
+                <a href="home.php">
                     <i class='bx bx-home'></i>
                     <span class="link_name">Home</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="index.html">Home</a></li>
+                    <li><a class="link_name" href="home.php">Home</a></li>
                 </ul>
             </li>
+
             <li>
                 <div class="iocn-link">
-                    <a href="index.php">
+                    <a href="forum/forum.php">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Forum</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Forum</a></li>
-                    <li><a href="forum-category.php">Category</a></li>
-                    <li><a href="#">Trending</a></li>
+                    <li><a class="link_name" href="forum/forum.php">Forum</a></li>
+                    <li><a href="forum/category.php">Category</a></li>
+                    <li><a href="forum/trending.php">Trending</a></li>
                 </ul>
             </li>
+
             <li>
-                <a href="#">
+                <a href="timeline/timeline.php">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="link_name">Timeline</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Timeline</a></li>
+                    <li><a class="link_name" href="timeline/timeline.php">Timeline</a></li>
                 </ul>
             </li>
             <li>
+                <a href="materi/materi-list.php">
+                    <i class='bx bx-buoy'></i>
+                    <span class="link_name">Materi</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="materi/materi-list.php">Materi</a></li>
+                </ul>
+            </li>
+
+            <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Customer Services</span>
                     </a>
@@ -109,25 +119,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Customer Service</a></li>
-                    <li><a href="#">Faqs</a></li>
-                    <li><a href="#">Gudlines</a></li>
-                    <li><a href="#">Rules</a></li>
+                    <li><a href="CS/faqs.php">Faqs</a></li>
+                    <li><a href="CS/guidlines.php">Gudelines</a></li>
                 </ul>
             </li>
-            <li>
-                <div class="iocn-link">
-                    <a href="#">
-                        <i class='bx bx-cog'></i>
-                        <span class="link_name">Settings</span>
-                    </a>
-                    <i class='bx bxs-chevron-down arrow'></i>
-                </div>
-                <ul class="sub-menu blank">
-                    <li>
-                        <a class="link_name" href="#">Settings</a>
-                    </li>
-                </ul>
-            </li>
+
         </ul>
     </div>
     <section class="section">
@@ -144,50 +140,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
         </div>
-
-        <script>
-            let arrow = document.querySelectorAll(".arrow");
-            for (var i = 0; i < arrow.length; i++) {
-                arrow[i].addEventListener("click", (e) => {
-                    let arrowParent = e.target.parentElement.parentElement;
-                    arrowParent.classList.toggle("showMenu");
-                    let mainContent = document.querySelector(".section");
-                    mainContent.classList.toggle("shifted");
-                });
-            }
-            let sidebar = document.querySelector(".sidebar");
-            let sidebarBtn = document.querySelector(".bx-chevron-right");
-            console.log(sidebarBtn);
-            sidebarBtn.addEventListener("click", () => {
-                sidebar.classList.toggle("close");
-                let mainContent = document.querySelector(".section");
-                mainContent.classList.toggle("shifted");
-            });
-
-
-            //login regis
-            const loginBtn = document.querySelector(".btn-login");
-            const registerBtn = document.querySelector(".btn-register");
-            loginBtn.addEventListener("click", () => {
-                console.log("Login button clicked");
-            });
-            registerBtn.addEventListener("click", () => {
-                console.log("Register button clicked");
-            }); //search script
-            const searchBar = document.querySelector('input[type="text"]');
-            searchBar.addEventListener("keyup", function(e) {
-                const term = e.target.value.toLowerCase();
-                const items = document.querySelectorAll("div.item");
-                Array.from(items).forEach(function(item) {
-                    const title = item.textContent;
-                    if (title.toLowerCase().indexOf(term) != -1) {
-                        item.style.display = "block";
-                    } else {
-                        item.style.display = "none";
-                    }
-                });
-            });
-        </script>
-</body>
+        <script src="../js/script.js"></script>
 
 </html>

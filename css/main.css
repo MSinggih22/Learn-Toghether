@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  
 }
 .sidebar {
   position: fixed;
@@ -211,22 +212,22 @@
 .section {
   position: relative;
   background: #e4e9f7;
-  height: auto;
-  min-height: 150vh !important; 
   left: 260px;
-  width: calc(100% - 260px);
   transition: all 0.5s ease;
+  width: 100%;
+  min-height: 120vh;
 }
 .sidebar.close ~ .section {
   left: 78px;
   width: calc(100% - 78px);
 }
 .section .content {
-
   display: flex;
   align-items: center;
 }
-
+.section .content .bx-chevron-right {
+  height: 60px;
+}
 .section .content .bx-chevron-right,
 .section .content .text {
   color: #11101d;
@@ -309,35 +310,16 @@
 .box.hidden {
   display: none;
 }
-.bottom-section {
-  background-color: #f1f1f1;
-  padding: 20px;
-  text-align: center;
-  font-size: 14px;
-  color: #660a0a;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: 9999;
-}
 
-.bottom-section .container {
-  max-width: 100%x;
-  margin: 0 auto;
-}
-
-.bottom-section .content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 10px;
-}
-
-.bottom-section .content p {
-  margin: 0;
-}
 .create-post-button {
+  display: flex;
+  position: absolute;
+  left: 214px;
+  z-index: 9999; /* Increase the z-index value to make it appear above other elements */
+  text-decoration: none;
+  top: 60px;
+}
+.add-materi {
   display: flex;
   position: absolute;
   left: 214px;

@@ -1,14 +1,35 @@
+<?php
+session_start();
+include '../db/db-connect.php';
+
+$user_id = $_SESSION['user_id'];
+$token = $_SESSION['token'];
+
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $stmt = $pdo->prepare('SELECT * FROM sessions WHERE user_id = :user_id AND token = :token');
+    $stmt->execute(['user_id' => $user_id, 'token' => $token]);
+    $session = $stmt->fetch();
+
+    if (!$session) {
+        // Invalid session, redirect to the login page
+        header('Location: index.html');
+        exit();
+    }
+} catch (PDOException $e) {
+    die("Connection error: " . $e->getMessage());
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/main.css">
+    <title>Learn Together</title>
     <link rel="stylesheet" href="../../css/forum.css">
+    <link rel="stylesheet" href="../../css/main.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <title>LT-Forum</title>
 </head>
 
 <body>
@@ -19,49 +40,48 @@
         </div>
         <ul class="nav-links">
             <li>
-                <a href="../home.php">
+                <a href="../log-home.php">
                     <i class='bx bx-home'></i>
                     <span class="link_name">Home</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="../home.php">Home</a></li>
+                    <li><a class="link_name" href="../log-home.php">Home</a></li>
                 </ul>
             </li>
 
             <li>
                 <div class="iocn-link">
-                    <a href="forum.php">
+                    <a href="log-forum.php">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Forum</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="forum.php">Forum</a></li>
-                    <li><a href="category.php">Category</a></li>
-                    <li><a href="trending.php">Trending</a></li>
+                    <li><a class="link_name" href="log-forum.php">Forum</a></li>
+                    <li><a href="log-category.php">Category</a></li>
+                    <li><a href="log-trending.php">Trending</a></li>
                 </ul>
             </li>
 
             <li>
-                <a href="../timeline/timeline.php">
+                <a href="../timeline/log-timeline.php">
                     <i class='bx bx-pie-chart-alt-2'></i>
                     <span class="link_name">Timeline</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="../timeline/timeline.php">Timeline</a></li>
+                    <li><a class="link_name" href="../timeline/log-timeline.php">Timeline</a></li>
                 </ul>
             </li>
             <li>
-                <a href="../materi/materi-list.php">
+                <a href="../materi/log-materi-list.php">
                     <i class='bx bx-buoy'></i>
                     <span class="link_name">Materi</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="../materi/materi-list.php">Materi</a></li>
+                    <li><a class="link_name" href="../materi/log=materi-list.php">Materi</a></li>
                 </ul>
             </li>
-
             <li>
                 <div class="iocn-link">
                     <a href="">
@@ -72,26 +92,62 @@
                 </div>
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Customer Service</a></li>
-                    <li><a href="../CS/faqs.php">Faqs</a></li>
-                    <li><a href="../CS/guidlines.php">Gudelines</a></li>
+                    <li><a href="../CS/log-faqs.php">Faqs</a></li>
+                    <li><a href="../CS/log-guidlines.php">Gudlines</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="../settings/settings.php">
+                        <i class='bx bx-cog'></i>
+                        <span class="link_name">Settings</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Settings</a></li>
+                    <li><a href="../Profile/m-profile-settings.php">My Profile Settings</a></li>
+                    <li><a href="../Profile/m-forum-settings.php">My Forum Settings</a></li>
+                    <li><a href="../Profile/m-timeline-settings.php">My Timeline Settings</a></li>
                 </ul>
             </li>
 
+            <?php
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = :user_id');
+            $stmt->execute(['user_id' => $user_id]);
+            $user = $stmt->fetch();
+            if ($user) {
+                echo "<div class='profile-details'>";
+                echo "<div class='profile-details'>";
+                echo "<div class='profile-content'>";
+                echo "<img src='data:image/jpeg;base64," . base64_encode($user['users_image']) . "' alt='profileImage' class='profile-image'>";
+                echo "</div>";
+                echo "<div class='name-job'>";
+                echo "<div class='profile_name'>";
+                echo "<h2>" . $user['username'] . "</h2>";
+                echo "</div>";
+                echo  "</div>";
+                echo "<a class='bx bx-log-out logout-button' href='../logout.php'></a>";
+                echo  "</div>";
+                echo "</div>";
+                echo "</li>";
+            } else {
+                echo "<p>Unable to fetch wuser data.</p>";
+            }
+            ?>
         </ul>
     </div>
     <section class="section">
+        <a href="post.php" class="create-post-button">Create a Post</a>
         <div class="content">
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <span class="text"></span>
             <div id="boxes">
                 <?php
-                include '../db/db-connect.php';
-
                 $search = "";
                 if (isset($_GET['search'])) {
                     $search = $_GET['search'];
                 }
-
                 $sql = "SELECT * FROM topics WHERE title LIKE '%$search%'";
                 $result = mysqli_query($conn, $sql);
 
@@ -128,7 +184,7 @@
                         echo "</div>";
                         echo "<div class='box-content'>";
                         echo "<div class='box-title'>";
-                        echo "<a href='inside-forum.php?id=" . $row['id_topics'] . "'>"; // Modify the anchor tag with the appropriate forum page URL
+                        echo "<a href='log-inside-forum.php?id=" . $row['id_topics'] . "'>"; // Modify the anchor tag with the appropriate forum page URL
                         echo "<h2>" . $row['title'] . "</h2>";
                         echo "</a>";
                         echo "</div>";
@@ -155,10 +211,6 @@
             </div>
         </div>
     </section>
-    <div class="container">
-        <a href="../login.php" class="btn btn-login">Log In</a>
-        <a href="../register.php" class="btn btn-register">Sign Up</a>
-    </div>
 
     <div class="search-container">
         <form action="#" method="GET">
@@ -166,7 +218,10 @@
             <button type="submit"><i class="bx bx-search"></i></button>
         </form>
     </div>
+
     <script src="../../js/script.js"></script>
 </body>
+
+</html>
 
 </html>

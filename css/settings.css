@@ -1,0 +1,51 @@
+.box {
+  position: relative;
+  border: 1px solid black;
+  padding: 10px;
+  z-index: 9;
+  width: 80%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  top: 150px;
+  margin-left: 160px;
+}
+.content h1 {
+  display: flex;
+  position: absolute;
+  left: 45%;
+  top: 0px;
+}
+.box table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+
+.box th,
+.box td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.box th {
+  background-color: #f2f2f2;
+}
+
+.box tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.box a {
+  display: inline-block;
+  padding: 6px 10px;
+  margin-right: 5px;
+  text-decoration: none;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 4px;
+}
+
+.box a:hover {
+  background-color: #45a049;
+}

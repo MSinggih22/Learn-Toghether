@@ -89,7 +89,7 @@ if (mysqli_num_rows($result) > 0) {
 <head>
     <title>Forum</title>
     <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/post.css">
+    <link rel="stylesheet" href="../../css/posts.css">
 
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -210,14 +210,15 @@ if (mysqli_num_rows($result) > 0) {
                     <input type="text" id="title" name="title">
                     <label for="description">Description:</label>
                     <textarea id="description" name="description"></textarea>
-
-                    <label for="category">Category:</label>
-                    <?php foreach ($categories as $category) : ?>
-                        <label>
-                            <input type="checkbox" name="category[]" value="<?php echo $category['id_t_category']; ?>">
-                            <?php echo $category['name']; ?>
-                        </label>
-                    <?php endforeach; ?>
+                    <div class="cat">
+                        <label for="category">Category:</label>
+                        <?php foreach ($categories as $category) : ?>
+                            <label>
+                                <input type="checkbox" name="category[]" value="<?php echo $category['id_t_category']; ?>">
+                                <?php echo $category['name']; ?>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
                     <label for="img">Select img:</label>
                     <input type="file" name="img" id="img">
                     <button type="submit" name="submit">Add</button>

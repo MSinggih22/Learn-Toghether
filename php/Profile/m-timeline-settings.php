@@ -170,7 +170,7 @@ try {
                             <td><?php echo $timeline['description']; ?></td>
                             <td>
                                 <a href="m-timeline-settings.php?delete_id=<?php echo $timeline['id_timeline']; ?>" onclick="return confirm('Are you sure you want to delete this forum?')">Delete</a>
-                                <a href="edit/edit-forum.php?id_timeline=<?php echo $timeline['id_timeline']; ?>">Edit</a>
+                                <a href="edit/e-m-timeline-settings.php?id_timeline=<?php echo $timeline['id_timeline']; ?>">Edit</a>
                             </td>
                         </tr>
                         <?php $count++; ?>

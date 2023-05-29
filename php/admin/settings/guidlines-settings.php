@@ -1,5 +1,4 @@
 <?php
-include '../../db/db-connect.php';
 session_start();
 $user_id = $_SESSION['user_id'];
 $token = $_SESSION['token'];
@@ -20,36 +19,8 @@ try {
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }
-
-if (isset($_POST['submit'])) {
-    // Ambil data yang diisi dari form
-    $title_materi = $_POST['title_materi'];
-    $description = $_POST['description'];
-    $link_video = $_POST['link_video'];
-    $nama = $_POST['nama'];
-
-    // Cari id_pengajar berdasarkan nama
-    $query = "SELECT id_pengajar FROM profilepengajar WHERE nama = '$nama'";
-    $result = mysqli_query($conn, $query);
-    $row = mysqli_fetch_assoc($result);
-    $id_pengajar = $row['id_pengajar'];
-
-    // Insert data materi ke tabel materi
-    $query = "INSERT INTO materi (title_materi, description, link_video, id_pengajar) 
-              VALUES ('$title_materi', '$description', '$link_video', '$id_pengajar')";
-    $result = mysqli_query($conn, $query);
-
-    if ($result) {
-        // Informasikan pengguna bahwa materi telah ditambahkan
-        echo "Materi telah ditambahkan.";
-        header("Location: materi-settings.php");
-        exit();
-    } else {
-        // Tampilkan pesan kesalahan jika terjadi masalah dalam menambahkan materi
-        echo "Terjadi kesalahan. Silakan coba lagi.";
-    }
-}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +28,7 @@ if (isset($_POST['submit'])) {
     <title>Learn Together-Admin Menu</title>
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../../../css/main.css">
-    <link rel="stylesheet" href="../../../css/admin-settings.css">
+    <link rel="stylesheet" href="../../../css/settings.css">
 </head>
 
 <body>
@@ -161,40 +132,54 @@ if (isset($_POST['submit'])) {
             ?>
         </ul>
     </div>
-
     <div class="section">
         <div class="content">
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
-            <div class="settings-form">
-                <h1>Add Materi</h1>
-                <form method="POST">
-                    <label for="title_materi">Title:</label>
-                    <input type="text" name="title_materi" required><br>
 
-                    <label for="description">Descripton:</label>
-                    <input name="description" required></input><br>
+            <?php
+            include '../../db/db-connect.php';
 
-                    <label for="link_video">Link Video:</label>
-                    <input type="text" name="link_video" required><br>
+            // Menghapus forum
+            if (isset($_GET['delete_id'])) {
+                $deleteId = $_GET['delete_id'];
+                $deleteSql = "DELETE FROM guidelines WHERE id_guidelines = $deleteId";
+                mysqli_query($conn, $deleteSql);
+            }
 
-                    <label for="nama">instructor:</label>
-                    <select name="nama" required>
-                        <?php
-                        // Ambil daftar instructor dari tabel profilepengajar
-                        $query = "SELECT nama FROM profilepengajar";
-                        $result = mysqli_query($conn, $query);
+            $sql = "SELECT * from guidelines";
+            $result = mysqli_query($conn, $sql);
+            $faqs = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            ?>
+            <h1>Guidelines Settings</h1>
+            <div class="box">
+                <a href="add-guidlines.php" class="add-guidlines">Add New guidlines</a>
 
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<option value='" . $row['nama'] . "'>" . $row['nama'] . "</option>";
-                        }
-                        ?>
-                    </select><br>
-                    <input type="submit" name="submit" value="Add New Materi">
-                </form>
+                <table>
+                    <tr>
+                        <th>No</th>
+                        <th>Title</th>
+                        <th>Descriptione</th>
+                        <th>Action</th>
+                    </tr>
+                    <?php $count = 1; ?>
+                    <?php foreach ($faqs as $faq) : ?>
+                        <tr>
+                            <td><?php echo $count; ?></td>
+                            <td><?php echo $faq['title']; ?></td>
+                            <td><?php echo $faq['description']; ?></td>
+                            <td>
+                                <a href="guidlines-settings.php?delete_id=<?php echo $faq['id_guidelines']; ?>" onclick="return confirm('Are you sure you want to delete this forum?')">Delete</a>
+                                <a href="edit/edit-guidlines.php?id_guidelines=<?php echo $faq['id_guidelines']; ?>">Edit</a>
+                            </td>
+                        </tr>
+                        <?php $count++; ?>
+                    <?php endforeach; ?>
+                </table>
             </div>
         </div>
     </div>
     <script src="../../../js/script.js"></script>
+
 </body>
 
 </html>

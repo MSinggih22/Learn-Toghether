@@ -31,57 +31,22 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $u_image = $_POST['users_image'];
 
-    // Periksa apakah gambar diunggah
-    if ($_FILES['users_image']['name'] != '') {
-        // Mendapatkan informasi file gambar
-        $file_name = $_FILES['users_image']['name'];
-        $file_size = $_FILES['users_image']['size'];
-        $file_tmp = $_FILES['users_image']['tmp_name'];
-        $file_type = $_FILES['users_image']['type'];
-        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+    $query = "UPDATE users SET email = '$email', username = '$username', password = '$password', users_image = 'u_image' WHERE id_user = '$user_id'";
+    $result = mysqli_query($conn, $query);
 
-        // Definisikan ekstensi file yang diizinkan
-        $allowed_extensions = array("jpg", "jpeg", "png", "gif");
-
-        // Periksa apakah ekstensi file valid
-        if (in_array($file_ext, $allowed_extensions)) {
-            // Upload file gambar ke server
-            move_uploaded_file($file_tmp, "path/to/upload/directory/" . $file_name);
-
-            // Update informasi pengguna ke tabel users
-            $query = "UPDATE users SET email = '$email', username = '$username', password = '$password', users_image = '$file_name' WHERE id_user = '$user_id'";
-            $result = mysqli_query($conn, $query);
-
-            if ($result) {
-                // Informasikan pengguna bahwa data telah diperbarui
-                echo "Data telah diperbarui.";
-                header("Location: m-profile-settings.php");
-                exit();
-            } else {
-                // Tampilkan pesan kesalahan jika terjadi masalah dalam memperbarui data
-                echo "Terjadi kesalahan. Silakan coba lagi.";
-            }
-        } else {
-            // Tampilkan pesan kesalahan jika ekstensi file tidak valid
-            echo "Hanya file gambar dengan ekstensi JPG, JPEG, PNG, atau GIF yang diizinkan.";
-        }
+    if ($result) {
+        // Informasikan pengguna bahwa data telah diperbarui
+        echo "Data telah diperbarui.";
+        header("Location: m-profile-settings.php");
+        exit();
     } else {
-        // Update informasi pengguna ke tabel users tanpa mengubah gambar profil
-        $query = "UPDATE users SET email = '$email', username = '$username', password = '$password' WHERE id_user = '$user_id'";
-        $result = mysqli_query($conn, $query);
-
-        if ($result) {
-            // Informasikan pengguna bahwa data telah diperbarui
-            echo "Data telah diperbarui.";
-            header("Location: m-profile-settings.php");
-            exit();
-        } else {
-            // Tampilkan pesan kesalahan jika terjadi masalah dalam memperbarui data
-            echo "Terjadi kesalahan. Silakan coba lagi.";
-        }
+        // Tampilkan pesan kesalahan jika terjadi masalah dalam memperbarui data
+        echo "Terjadi kesalahan. Silakan coba lagi.";
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -135,6 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <form action="login.php" method="post">
                     <input type="text" name="username" placeholder="Username" required="required" />
                     <input type="password" name="password" placeholder="Password" required="required" />
+                    <p> Dont Have Accoutn? <a href="register.php" class="account">Register!</a></p>
                     <input type="submit" name="login" value="Login">
                 </form>
             </div>

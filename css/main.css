@@ -4,7 +4,6 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  
 }
 .sidebar {
   position: fixed;
@@ -312,14 +311,6 @@
 }
 
 .create-post-button {
-  display: flex;
-  position: absolute;
-  left: 214px;
-  z-index: 9999; /* Increase the z-index value to make it appear above other elements */
-  text-decoration: none;
-  top: 60px;
-}
-.add-materi {
   display: flex;
   position: absolute;
   left: 214px;

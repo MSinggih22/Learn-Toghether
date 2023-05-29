@@ -145,34 +145,32 @@ try {
             // Menghapus forum
             if (isset($_GET['delete_id'])) {
                 $deleteId = $_GET['delete_id'];
-                $deleteSql = "DELETE FROM topics WHERE id_topics = $deleteId";
+                $deleteSql = "DELETE FROM timeline WHERE id_timeline = $deleteId";
                 mysqli_query($conn, $deleteSql);
             }
 
-            $sql = "SELECT topics.id_topics, users.username, topics.title, topics.created_at FROM topics JOIN users ON topics.user_id = users.id_user where $user_id = topics.user_id";
+            $sql = "SELECT timeline.id_timeline, users.username, timeline.description FROM timeline JOIN users ON timeline.user_id = users.id_user where $user_id = timeline.user_id";
             $result = mysqli_query($conn, $sql);
-            $forums = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            $timelines = mysqli_fetch_all($result, MYSQLI_ASSOC);
             ?>
-            <h1>Forum Settings</h1>
+            <h1>Timeline Settings</h1>
             <div class="box">
                 <table>
                     <tr>
                         <th>No</th>
                         <th>Creator</th>
-                        <th>Title</th>
-                        <th>Created At</th>
+                        <th>description</th>
                         <th>Action</th>
                     </tr>
                     <?php $count = 1; ?>
-                    <?php foreach ($forums as $forum) : ?>
+                    <?php foreach ($timelines as $timeline) : ?>
                         <tr>
                             <td><?php echo $count; ?></td>
-                            <td><?php echo $forum['username']; ?></td>
-                            <td><?php echo $forum['title']; ?></td>
-                            <td><?php echo $forum['created_at']; ?></td>
+                            <td><?php echo $timeline['username']; ?></td>
+                            <td><?php echo $timeline['description']; ?></td>
                             <td>
-                                <a href="m-forum-settings.php?delete_id=<?php echo $forum['id_topics']; ?>" onclick="return confirm('Are you sure you want to delete this forum?')">Delete</a>
-                                <a href="edit/edit-forum.php?id_topics=<?php echo $forum['id_topics']; ?>">Edit</a>
+                                <a href="m-timeline-settings.php?delete_id=<?php echo $timeline['id_timeline']; ?>" onclick="return confirm('Are you sure you want to delete this forum?')">Delete</a>
+                                <a href="edit/edit-forum.php?id_timeline=<?php echo $timeline['id_timeline']; ?>">Edit</a>
                             </td>
                         </tr>
                         <?php $count++; ?>
@@ -182,7 +180,5 @@ try {
         </div>
     </div>
     <script src="../../js/script.js"></script>
-
 </body>
-
 </html>

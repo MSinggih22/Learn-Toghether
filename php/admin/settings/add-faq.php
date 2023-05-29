@@ -23,29 +23,22 @@ try {
 
 if (isset($_POST['submit'])) {
     // Ambil data yang diisi dari form
-    $title_materi = $_POST['title_materi'];
-    $description = $_POST['description'];
-    $link_video = $_POST['link_video'];
-    $nama = $_POST['nama'];
+    $Pertanyaan = $_POST['Pertanyaan'];
+    $Jawaban = $_POST['Jawaban'];
 
-    // Cari id_pengajar berdasarkan nama
-    $query = "SELECT id_pengajar FROM profilepengajar WHERE nama = '$nama'";
-    $result = mysqli_query($conn, $query);
-    $row = mysqli_fetch_assoc($result);
-    $id_pengajar = $row['id_pengajar'];
 
-    // Insert data materi ke tabel materi
-    $query = "INSERT INTO materi (title_materi, description, link_video, id_pengajar) 
-              VALUES ('$title_materi', '$description', '$link_video', '$id_pengajar')";
+    // Insert data faq ke tabel faq
+    $query = "INSERT INTO faq (Pertanyaan, Jawaban  ) 
+              VALUES ('$Pertanyaan', '$Jawaban')";
     $result = mysqli_query($conn, $query);
 
     if ($result) {
-        // Informasikan pengguna bahwa materi telah ditambahkan
-        echo "Materi telah ditambahkan.";
-        header("Location: materi-settings.php");
+        // Informasikan pengguna bahwa faq telah ditambahkan
+        echo "faq telah ditambahkan.";
+        header("Location: faq-settings.php");
         exit();
     } else {
-        // Tampilkan pesan kesalahan jika terjadi masalah dalam menambahkan materi
+        // Tampilkan pesan kesalahan jika terjadi masalah dalam menambahkan faq
         echo "Terjadi kesalahan. Silakan coba lagi.";
     }
 }
@@ -108,12 +101,12 @@ if (isset($_POST['submit'])) {
                 </ul>
             </li>
             <li>
-                <a href="materi-settings.php">
+                <a href="faq-settings.php">
                     <i class='bx bx-buoy'></i>
-                    <span class="link_name">Materi Settings</span>
+                    <span class="link_name">faq Settings</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="materi-settings.php">Materi Settings</a></li>
+                    <li><a class="link_name" href="faq-settings.php">faq Settings</a></li>
                 </ul>
             </li>
             <li>
@@ -166,30 +159,16 @@ if (isset($_POST['submit'])) {
         <div class="content">
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <div class="settings-form">
-                <h1>Add Materi</h1>
+                <h1>Add faq</h1>
                 <form method="POST">
-                    <label for="title_materi">Title:</label>
-                    <input type="text" name="title_materi" required><br>
+                    <label for="Pertanyaan">Question:</label>
+                    <input type="text" name="Pertanyaan" required><br>
 
-                    <label for="description">Descripton:</label>
-                    <input name="description" required></input><br>
+                    <label for="Jawaban">Answer:</label>
+                    <input name="Jawaban" required></input><br>
 
-                    <label for="link_video">Link Video:</label>
-                    <input type="text" name="link_video" required><br>
-
-                    <label for="nama">instructor:</label>
-                    <select name="nama" required>
-                        <?php
-                        // Ambil daftar instructor dari tabel profilepengajar
-                        $query = "SELECT nama FROM profilepengajar";
-                        $result = mysqli_query($conn, $query);
-
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<option value='" . $row['nama'] . "'>" . $row['nama'] . "</option>";
-                        }
-                        ?>
                     </select><br>
-                    <input type="submit" name="submit" value="Add New Materi">
+                    <input type="submit" name="submit" value="Add New faq">
                 </form>
             </div>
         </div>

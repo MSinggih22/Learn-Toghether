@@ -23,29 +23,22 @@ try {
 
 if (isset($_POST['submit'])) {
     // Ambil data yang diisi dari form
-    $title_materi = $_POST['title_materi'];
+    $title = $_POST['title'];
     $description = $_POST['description'];
-    $link_video = $_POST['link_video'];
-    $nama = $_POST['nama'];
 
-    // Cari id_pengajar berdasarkan nama
-    $query = "SELECT id_pengajar FROM profilepengajar WHERE nama = '$nama'";
-    $result = mysqli_query($conn, $query);
-    $row = mysqli_fetch_assoc($result);
-    $id_pengajar = $row['id_pengajar'];
 
-    // Insert data materi ke tabel materi
-    $query = "INSERT INTO materi (title_materi, description, link_video, id_pengajar) 
-              VALUES ('$title_materi', '$description', '$link_video', '$id_pengajar')";
+    // Insert data guidelines ke tabel guidelines
+    $query = "INSERT INTO guidelines (title, description  ) 
+              VALUES ('$title', '$description')";
     $result = mysqli_query($conn, $query);
 
     if ($result) {
-        // Informasikan pengguna bahwa materi telah ditambahkan
-        echo "Materi telah ditambahkan.";
-        header("Location: materi-settings.php");
+        // Informasikan pengguna bahwa guidelines telah ditambahkan
+        echo "guidelines telah ditambahkan.";
+        header("Location: guidlines-settings.php");
         exit();
     } else {
-        // Tampilkan pesan kesalahan jika terjadi masalah dalam menambahkan materi
+        // Tampilkan pesan kesalahan jika terjadi masalah dalam menambahkan guidelines
         echo "Terjadi kesalahan. Silakan coba lagi.";
     }
 }
@@ -108,21 +101,21 @@ if (isset($_POST['submit'])) {
                 </ul>
             </li>
             <li>
-                <a href="materi-settings.php">
+                <a href="guidelines-settings.php">
                     <i class='bx bx-buoy'></i>
-                    <span class="link_name">Materi Settings</span>
+                    <span class="link_name">guidelines Settings</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="materi-settings.php">Materi Settings</a></li>
+                    <li><a class="link_name" href="guidelines-settings.php">guidelines Settings</a></li>
                 </ul>
             </li>
             <li>
-                <a href="faq-settings.php">
+                <a href="guidelines-settings.php">
                     <i class='bx bx-message'></i>
-                    <span class="link_name">Faq Settings</span>
+                    <span class="link_name">guidelines Settings</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="faq-settings.php">Faq Settings</a></li>
+                    <li><a class="link_name" href="guidelines-settings.php">guidelines Settings</a></li>
                 </ul>
             </li>
             <li>
@@ -166,30 +159,16 @@ if (isset($_POST['submit'])) {
         <div class="content">
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <div class="settings-form">
-                <h1>Add Materi</h1>
+                <h1>Add guidelines</h1>
                 <form method="POST">
-                    <label for="title_materi">Title:</label>
-                    <input type="text" name="title_materi" required><br>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" required><br>
 
-                    <label for="description">Descripton:</label>
+                    <label for="description">Description:</label>
                     <input name="description" required></input><br>
 
-                    <label for="link_video">Link Video:</label>
-                    <input type="text" name="link_video" required><br>
-
-                    <label for="nama">instructor:</label>
-                    <select name="nama" required>
-                        <?php
-                        // Ambil daftar instructor dari tabel profilepengajar
-                        $query = "SELECT nama FROM profilepengajar";
-                        $result = mysqli_query($conn, $query);
-
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<option value='" . $row['nama'] . "'>" . $row['nama'] . "</option>";
-                        }
-                        ?>
                     </select><br>
-                    <input type="submit" name="submit" value="Add New Materi">
+                    <input type="submit" name="submit" value="Add New guidelines">
                 </form>
             </div>
         </div>

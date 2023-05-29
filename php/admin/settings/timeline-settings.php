@@ -38,7 +38,7 @@ try {
             <span class="logo_name">LT-Admin Menu</span>
         </div>
         <ul class="nav-links">
-        <li>
+            <li>
                 <a href="../admin-menu.php">
                     <i class='bx bx-home'></i>
                     <span class="link_name">Dasboard</span>
@@ -85,6 +85,24 @@ try {
                 </a>
                 <ul class="sub-menu blank">
                     <li><a class="link_name" href="materi-settings.php">Materi Settings</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="faq-settings.php">
+                    <i class='bx bx-message'></i>
+                    <span class="link_name">Faq Settings</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="faq-settings.php">Faq Settings</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="guidlines-settings.php">
+                    <i class='bx bx-news'></i>
+                    <span class="link_name">Guidlines Settings</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="guidlines-settings.php">Guidlines Settings</a></li>
                 </ul>
             </li>
 

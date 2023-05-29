@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
     <div class="sidebar close">
         <div class="logo-details">
@@ -108,6 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="email" placeholder="Email" name="email" required />
                     <input type="password" placeholder="Password" name="password" autocomplete="new-password" required />
                     <input type="password" placeholder="Confirm Password" name="confirmpassword" autocomplete="new-password" required />
+                    <p> Already Have An Account? <a href="login.php" class="account">Login!</a></p>
                     <input type="submit" value="Register" name="register" class="btn btn-block btn-primary" />
                 </form>
             </div>

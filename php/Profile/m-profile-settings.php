@@ -27,14 +27,22 @@ $row = mysqli_fetch_assoc($result);
 
 // Periksa apakah tombol "submit" diklik
 if (isset($_POST['submit'])) {
-    // Ambil data yang diperbarui dari form
     $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $u_image = $_POST['users_image'];
+    $u_image = $_FILES['users_image'];
 
-    $query = "UPDATE users SET email = '$email', username = '$username', password = '$password', users_image = 'u_image' WHERE id_user = '$user_id'";
+    $filename = $u_image['name'];
+    $tmpFilePath = $u_image['tmp_name'];
+    $fileSize = $u_image['size'];
+    $fileType = $u_image['type'];
+
+    // Read the contents of the image file
+    $imageData = addslashes(file_get_contents($tmpFilePath)); // Add addslashes() to handle special characters
+
+    $query = "UPDATE users SET email = '$email', username = '$username', password = '$password', users_image = '$imageData' WHERE id_user = '$user_id'";
     $result = mysqli_query($conn, $query);
+
 
     if ($result) {
         // Informasikan pengguna bahwa data telah diperbarui
@@ -166,7 +174,7 @@ if (isset($_POST['submit'])) {
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <span class="text"></span>
             <div class="settings-form">
-                <h1>Pengaturan Pengguna</h1>
+                <h1>Configure Account</h1>
 
                 <form method="POST" enctype="multipart/form-data">
                     <label for="email">Email:</label>
@@ -179,7 +187,7 @@ if (isset($_POST['submit'])) {
                     <input type="password" name="password" value="<?php echo $row['password']; ?>" required><br>
 
                     <label for="users_image">Gambar Profil:</label>
-                    <input type="file" name="users_image"><br>
+                    <input type="file" name="users_image" id="users_image">
 
                     <input type="submit" name="submit" value="Submit" onclick="return confirm('Apakah Anda yakin?')">
                 </form>

@@ -98,34 +98,32 @@
   border-top: 5px solid #ccc;
   margin: auto;
 }
-.btn-login {
-  border: none;
-  background-color: transparent;
-  font-size: 15px;
-  color: #0f6fec;
-  padding: 5px;
-  margin: auto;
-  cursor: pointer;
-  padding: 10px 10px;
-  transition: color 0.3s ease;
-  text-decoration: none;
-}
+.btn-login,
 .btn-register {
-  border: none;
-  background-color: transparent;
-  font-size: 15px;
-  color: #0f6fec;
-  padding: 5px;
-  margin: auto;
-  cursor: pointer;
-  padding: 10px 10px;
-  transition: color 0.3s ease;
+  color: var(--color);
+  transition: 0.25s;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #159927;
+  }
+}
+.btn-login,
+.btn-register {
+  background: white;
+  border: 3px solid;
+  font: inherit;
+  line-height: 0.1;
+  margin: 0.5em;
+  padding: 1em 2em;
   text-decoration: none;
 }
 .btn-login:hover,
 .btn-register:hover {
   cursor: pointer;
-  text-decoration: underline;
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
 }
 .container {
   display: flex;
@@ -142,8 +140,8 @@
 
 .search-container {
   position: absolute;
-  top: -6px;
-  right: 150px;
+  top: -3px;
+  right: 300px;
   display: flex;
   margin-top: 10px;
   margin-right: 10px;

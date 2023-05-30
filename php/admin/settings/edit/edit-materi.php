@@ -130,10 +130,9 @@ if (isset($_POST['simpan'])) {
                 </ul>
             </li>
             <?php
-            $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = user_id');
+            $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = :user_id');
             $stmt->execute(['user_id' => $user_id]);
             $user = $stmt->fetch();
-
             if ($user) {
                 echo "<li>";
                 echo "<div class='profile-details'>";
@@ -161,7 +160,6 @@ if (isset($_POST['simpan'])) {
             <div class="settings-form">
                 <form method="POST" enctype="multipart/form-data">
                     <h1>Mengatur Materi <?php echo $materi['title_materi']; ?></h1>
-
                     <label for="title_materi">Title:</label>
                     <input type="title_materi" name="title_materi" value="<?php echo $materi['title_materi']; ?>" required><br>
 

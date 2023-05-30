@@ -48,10 +48,10 @@ h1 {
   background-color: #ccc; /* Latar belakang berubah saat hover */
 }
 
- h3{
-    padding: 10px;
-    text-align: center;
+h3 {
+  padding: 10px;
+  text-align: center;
 }
-h2{
-    text-align: center;
+h2 {
+  text-align: center;
 }

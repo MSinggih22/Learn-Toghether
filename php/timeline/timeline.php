@@ -4,7 +4,7 @@
 <head>
     <title>LT-Timeline</title>
     <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/timelines.css">
+    <link rel="stylesheet" href="../../css/timeline.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 

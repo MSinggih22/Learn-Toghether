@@ -31,7 +31,7 @@ if (mysqli_num_rows($result) > 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/category.css">
+    <link rel="stylesheet" href="../../css/categorys.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <title>LT-Forum</title>
 </head>
@@ -110,15 +110,13 @@ if (mysqli_num_rows($result) > 0) {
             <span class="text"></span>
             <div id="boxes">
                 <h1>Select Category</h1>
-                <ul>
+                <div class="list-container">
                     <?php foreach ($categories as $category) : ?>
-                        <li>
-                            <a href="category-forum.php?category_id=<?php echo $category['id_t_category']; ?>">
-                                <?php echo $category['name']; ?>
-                            </a>
-                        </li>
+                        <a href="category-forum.php?category_id=<?php echo $category['id_t_category']; ?>" class="button">
+                            <?php echo $category['name']; ?>
+                        </a>
                     <?php endforeach; ?>
-                </ul>
+                </div>      
             </div>
         </div>
     </section>

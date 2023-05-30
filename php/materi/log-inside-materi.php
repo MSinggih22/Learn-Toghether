@@ -28,7 +28,7 @@ try {
 <head>
     <title>Forum</title>
     <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/inside-materi.css">
+    <link rel="stylesheet" href="../../css/inside-materis.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -184,8 +184,9 @@ try {
                             echo '<div id="player-' . $materiId . '"></div>';
                             echo "</div>";
                             echo "</div>";
+
                             echo "<div class='profile-box'>";
-                            echo "<h2>Profil Pengajar</h2>";
+                            echo "<h2>Profile Pengajar</h2>";
                             echo "<p>Nama: $namaPengajar</p>";
                             echo "<p>Pekerjaan: $pekerjaan</p>";
                             echo "<p>Instagram: <a href='../new-page.php?url=$instagram' target='_blank'>$instagram</a></p>";

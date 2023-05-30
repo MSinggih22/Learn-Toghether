@@ -26,7 +26,7 @@ try {
 <head>
     <title>LT-Timeline</title>
     <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/timelines.css">
+    <link rel="stylesheet" href="../../css/timeline.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -72,12 +72,12 @@ try {
                 </ul>
             </li>
             <li>
-                <a href="">
+                <a href="../materi/log-materi-list.php">
                     <i class='bx bx-buoy'></i>
                     <span class="link_name">Materi</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="">Materi</a></li>
+                    <li><a class="link_name" href="../materi/log-materi-list.php">Materi</a></li>
                 </ul>
             </li>
 
@@ -92,7 +92,7 @@ try {
                 <ul class="sub-menu">
                     <li><a class="link_name" href="#">Customer Service</a></li>
                     <li><a href="../CS/log-faqs.php">Faqs</a></li>
-                    <li><a href="./CS/log-guidlines.php">Gudlines</a></li>
+                    <li><a href="../CS/log-guidlines.php">Gudlines</a></li>
                 </ul>
             </li>
             <li>
@@ -212,14 +212,14 @@ try {
 
                     $comments = getComments($conn, $timeline_id);
 
-
                     echo "<button onclick='toggleComments(this)' class='show-comment-button'>Show Comment</button>";
                     echo "<div class='box-comments' style='display: none;'>";
+                    echo "<h4>Comment:</h4>";
+
                     foreach ($comments as $comment) {
                         $commentContent = $comment['comment'];
                         $commentUsername = $comment['comment_username'];
                         echo "<div class='comment'>";
-                        echo "<p>Comment:</p>";
                         echo "<span class='comment-username'>{$commentUsername}: </span>";
                         echo "<p>{$commentContent}</p>";
 
@@ -227,7 +227,6 @@ try {
                     }
                     echo "<button onclick='toggleCommentForm(this)' class='add-comment-button'>Add Coment</button>";
                     echo "<div class='comment-form' style='display: none;'>";
-                    echo "<h4>Comment:</h4>";
                     echo "<form action='' method='POST'>";
                     echo "<textarea name='comment' placeholder='Masukkan komentar Anda' required></textarea>";
                     echo "<input type='hidden' name='timeline_id' value='{$timeline_id}'>";

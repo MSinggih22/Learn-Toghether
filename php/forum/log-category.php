@@ -171,7 +171,7 @@ if (mysqli_num_rows($result) > 0) {
                 <ul>
                     <?php foreach ($categories as $category) : ?>
                         <li>
-                            <a href="log-category-forum.php?category_id=<?php echo $category['id_t_category']; ?>">
+                            <a href="category-forum.php?category_id=<?php echo $category['id_t_category']; ?>">
                                 <?php echo $category['name']; ?>
                             </a>
                         </li>

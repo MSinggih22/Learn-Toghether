@@ -151,8 +151,8 @@ try {
             $materis = mysqli_fetch_all($result, MYSQLI_ASSOC);
             ?>
             <h1>Materi Settings</h1>
-            <a href="add-materi.php" class="add-materi">Add New Materi</a>
             <div class="box">
+                <a href="add-materi.php" class="add-materi">Add New Materi</a>
                 <table>
                     <tr>
                         <th>No</th>

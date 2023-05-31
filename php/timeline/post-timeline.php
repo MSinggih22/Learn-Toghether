@@ -64,7 +64,7 @@ if (mysqli_num_rows($result) > 0) {
 <head>
     <title>Forum</title>
     <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/post.css">
+    <link rel="stylesheet" href="../../css/posts.css">
 
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -136,17 +136,17 @@ if (mysqli_num_rows($result) > 0) {
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="../settings/settings.php">
+                    <a href="../Profile/m-profile-settings.php">
                         <i class='bx bx-cog'></i>
                         <span class="link_name">Settings</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Settings</a></li>
-                    <li><a href="../settings/profile-settings.php">Profile Settings</a></li>
-                    <li><a href="../settings/forum-settings.php">Topics Setting</a></li>
-                    <li><a href="../settings/account-settings.php">Account Settings</a></li>
+                    <li><a class="link_name" href="../Profile/m-profile-settings.php">Settings</a></li>
+                    <li><a href="../Profile/m-profile-settings.php">My Profile Settings</a></li>
+                    <li><a href="../Profile/m-forum-settings.php">My Forum Settings</a></li>
+                    <li><a href="../Profile/m-timeline-settings.php">My Timeline Settings</a></li>
                 </ul>
             </li>
 

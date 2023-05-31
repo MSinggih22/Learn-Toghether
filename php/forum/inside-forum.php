@@ -73,7 +73,6 @@
                     <li><a href="../CS/guidlines.php">Gudelines</a></li>
                 </ul>
             </li>
-
         </ul>
     </div>
     <section class="section">
@@ -181,7 +180,7 @@
                     }
                     echo "<div class='comment-form'>";
                     echo "<h4>Add a Comment:</h4>";
-                    echo "<form action='../login.php' method='POST'>";
+                    echo "<form action='../login.php'>";
                     echo "<input type='hidden' name='topic_id' value='" . $forumID . "'>";
                     echo "<textarea name='comment' placeholder='Enter your comment' required></textarea>";
                     echo "<button type='submit'>Submit</button>";
@@ -196,18 +195,11 @@
                 ?>
             </div>
         </div>
+        <div class="container">
+            <a href="../login.php" class="btn btn-login">Log In</a>
+            <a href="../register.php" class="btn btn-register">Sign Up</a>
+        </div>
     </section>
-    <div class="container">
-        <a href="../login.php" class="btn btn-login">Log In</a>
-        <a href="../register.php" class="btn btn-register">Sign Up</a>
-    </div>
-    <div class="search-container">
-        <form action="#" method="GET">
-            <input type="text" name="search" placeholder="Search...">
-            <button type="submit"><i class="bx bx-search"></i></button>
-        </form>
-    </div>
-
     <script src="../../js/script.js"></script>
 </body>
 

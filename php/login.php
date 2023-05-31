@@ -38,12 +38,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: admin/admin-menu.php");
         } else {
             // Redirect the user to the inside page
-            header("Location: forum/log-forum.php");
+            header("Location:log-home.php");
         }
         exit();
     } else {
         // Login failed
-        echo "Invalid username or password";
+        echo '<script>alert("Invalid username or password");</script>';
+        echo '<script>window.location.href = "login.php";</script>';
     }
 }
 ?>
@@ -52,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
 <head>
-    <title>Learn Together</title>
+    <title>LT-Login</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/login.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
@@ -135,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <form action="login.php" method="post">
                     <input type="text" name="username" placeholder="Username" required="required" />
                     <input type="password" name="password" placeholder="Password" required="required" />
-                    <p> Dont Have Accoutn? <a href="register.php" class="account">Register!</a></p>
+                    <p> Don't Have an Accoutn? <a href="register.php" class="account">Register Now!</a></p>
                     <input type="submit" name="login" value="Login">
                 </form>
             </div>

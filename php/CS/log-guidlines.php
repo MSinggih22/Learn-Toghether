@@ -28,7 +28,7 @@ try {
 <head>
     <title>Learn Together</title>
     <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/cs.css">
+    <link rel="stylesheet" href="../../css/css.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -99,17 +99,17 @@ try {
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="../settings/settings.php">
+                    <a href="../profile/m-profile-settings.phpp">
                         <i class='bx bx-cog'></i>
                         <span class="link_name">Settings</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Settings</a></li>
-                    <li><a href="../settings/profile-settings.php">Profile Settings</a></li>
-                    <li><a href="../settings/forum-settings.php">Topics Setting</a></li>
-                    <li><a href="../settings/account-settings.php">Account Settings</a></li>
+                    <li><a class="link_name" href="../profile/m-profile-settings.php">Settings</a></li>
+                    <li><a href="../profile/m-profile-settings.php">Profile Settings</a></li>
+                    <li><a href="../profile/m-forum-settings.php">Topics Setting</a></li>
+                    <li><a href="../profile/m-timeline-settings.php">Timeline</a></li>
                 </ul>
             </li>
 

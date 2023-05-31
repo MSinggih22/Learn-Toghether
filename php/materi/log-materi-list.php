@@ -54,16 +54,16 @@ try {
 
             <li>
                 <div class="iocn-link">
-                    <a href="forum.php">
+                    <a href="../forum/log-forum.php">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Forum</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="forum.php">Forum</a></li>
-                    <li><a href="category.php">Category</a></li>
-                    <li><a href="trending.php">Trending</a></li>
+                    <li><a class="link_name" href="../forum/log-forum.php">Forum</a></li>
+                    <li><a href="../forum/log-category.php">Category</a></li>
+                    <li><a href="../forum/log-trending.php">Trending</a></li>
                 </ul>
             </li>
 
@@ -102,14 +102,14 @@ try {
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="../settings/settings.php">
+                    <a href="../Profile/m-profile-settings.php">
                         <i class='bx bx-cog'></i>
                         <span class="link_name">Settings</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Settings</a></li>
+                    <li><a class="link_name" href="../Profile/m-profile-settings.php">Settings</a></li>
                     <li><a href="../Profile/m-profile-settings.php">My Profile Settings</a></li>
                     <li><a href="../Profile/m-forum-settings.php">My Forum Settings</a></li>
                     <li><a href="../Profile/m-timeline-settings.php">My Timeline Settings</a></li>

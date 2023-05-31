@@ -159,7 +159,7 @@ if (isset($_POST['simpan'])) {
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <div class="settings-form">
                 <form method="POST" enctype="multipart/form-data">
-                    <h1>Mengatur Materi <?php echo $materi['title_materi']; ?></h1>
+                    <h1>Configure (<?php echo $materi['title_materi']; ?>) Materi</h1>
                     <label for="title_materi">Title:</label>
                     <input type="title_materi" name="title_materi" value="<?php echo $materi['title_materi']; ?>" required><br>
 

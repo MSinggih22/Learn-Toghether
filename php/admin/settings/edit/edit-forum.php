@@ -184,7 +184,7 @@ if (isset($_POST['simpan'])) {
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <div class="settings-form">
                 <form method="POST" enctype="multipart/form-data">
-                    <h1>Mengatur topics <?php echo $topics['title']; ?></h1>
+                    <h1>Configure (<?php echo $topics['title']; ?>) Topics</h1>
 
                     <label for="title">Title:</label>
                     <input type="title" name="title" value="<?php echo $topics['title']; ?>" required><br>

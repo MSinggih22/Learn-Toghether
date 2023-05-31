@@ -31,7 +31,7 @@ if (mysqli_num_rows($result) > 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/categorys.css">
+    <link rel="stylesheet" href="../../css/category.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <title>LT-Forum</title>
 </head>
@@ -116,10 +116,15 @@ if (mysqli_num_rows($result) > 0) {
                             <?php echo $category['name']; ?>
                         </a>
                     <?php endforeach; ?>
-                </div>      
+                </div>
             </div>
         </div>
+        <div class="container">
+            <a href="../login.php" class="btn btn-login">Log In</a>
+            <a href="../register.php" class="btn btn-register">Sign Up</a>
+        </div>
     </section>
+
     <script src="../../js/script.js"></script>
 </body>
 

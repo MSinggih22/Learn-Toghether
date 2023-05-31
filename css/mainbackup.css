@@ -5,9 +5,6 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-body {
-  background: #e4e9f7;
-}
 .sidebar {
   position: fixed;
   top: 0;
@@ -217,8 +214,7 @@ body {
   left: 260px;
   transition: all 0.5s ease;
   width: 100%;
-  min-height: 100vh;
-  max-height: 100vh;
+  min-height: 120vh;
 }
 .sidebar.close ~ .section {
   left: 78px;

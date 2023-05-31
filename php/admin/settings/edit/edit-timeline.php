@@ -157,10 +157,9 @@ if (isset($_POST['simpan'])) {
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <div class="settings-form">
                 <form method="POST" enctype="multipart/form-data">
-                    <h1>Mengatur timeline dari <?php echo $timeline['username']; ?></h1>
+                    <h1>Configure (<?php echo $timeline['username']; ?>) Timeline</h1>
                     <label for="description">Description:</label>
                     <input type="text" name="description" value="<?php echo $timeline['description']; ?>" required><br>
-
                     <input type="submit" name="simpan" value="simpan">
                 </form>
             </div>

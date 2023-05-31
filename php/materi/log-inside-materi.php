@@ -51,16 +51,16 @@ try {
 
             <li>
                 <div class="iocn-link">
-                    <a href="forum.php">
+                    <a href="../forum/forum.php">
                         <i class='bx bx-collection'></i>
                         <span class="link_name">Forum</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="forum.php">Forum</a></li>
-                    <li><a href="category.php">Category</a></li>
-                    <li><a href="trending.php">Trending</a></li>
+                    <li><a class="link_name" href="../forum/forum.php">Forum</a></li>
+                    <li><a href="../forum/category.php">Category</a></li>
+                    <li><a href="../forum/trending.php">Trending</a></li>
                 </ul>
             </li>
 
@@ -99,7 +99,7 @@ try {
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="../settings/settings.php">
+                    <a href="../Profile/m-profile-settings.php">
                         <i class='bx bx-cog'></i>
                         <span class="link_name">Settings</span>
                     </a>
@@ -112,7 +112,6 @@ try {
                     <li><a href="../Profile/m-timeline-settings.php">My Timeline Settings</a></li>
                 </ul>
             </li>
-
             <?php
             $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = :user_id');
             $stmt->execute(['user_id' => $user_id]);

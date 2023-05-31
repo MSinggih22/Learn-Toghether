@@ -8,8 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirm_password = $_POST["confirmpassword"];
 
     if ($password !== $confirm_password) {
-        echo "Passwords do not match.";
-        exit;
+        echo '<script>alert("Passwords do not match.");</script>';
+        echo '<script>window.location.href = "register.php";</script>';
     }
 
     $stmt = $conn->prepare('INSERT INTO users (username, email, password) VALUES (?, ?, ?)');
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
 <head>
-    <title>Learn Together</title>
+    <title>LT-Register</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/login.css">
 

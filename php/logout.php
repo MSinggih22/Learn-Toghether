@@ -16,5 +16,5 @@ session_unset();
 
 session_destroy();
 
-header('Location: forum/forum.php');
+header('Location: home.php');
 exit();

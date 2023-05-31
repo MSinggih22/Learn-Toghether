@@ -4,7 +4,7 @@
 <head>
     <title>Learn Together-FAQS</title>
     <link rel="stylesheet" href="../../css/main.css">
-    <link rel="stylesheet" href="../../css/cs.css">
+    <link rel="stylesheet" href="../../css/css.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -104,7 +104,12 @@
             </div>
         </div>
         </div>
+        <div class="container">
+            <a href="../login.php" class="btn btn-login">Log In</a>
+            <a href="../register.php" class="btn btn-register">Sign Up</a>
+        </div>
     </section>
+
     <script src="../../js/script.js"></script>
 </body>
 

@@ -174,7 +174,7 @@ if (isset($_POST['simpan'])) {
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <div class="settings-form">
                 <form method="POST" enctype="multipart/form-data">
-                    <h1>Mengatur <?php echo $row['username']; ?></h1>
+                    <h1>Configure (<?php echo $row['username']; ?>) Account</h1>
                     <label for="email">Email:</label>
                     <input type="email" name="email" value="<?php echo $row['email']; ?>" required><br>
 

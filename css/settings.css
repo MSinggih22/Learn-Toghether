@@ -49,3 +49,15 @@
 .box a:hover {
   background-color: #45a049;
 }
+.box a:hover {
+  cursor: pointer;
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}
+.box a {
+  transition: 0.25s;
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+  }
+}

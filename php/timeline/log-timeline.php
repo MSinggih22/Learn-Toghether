@@ -97,7 +97,7 @@ try {
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="../settings/settings.php">
+                    <a href="../Profile/m-profile-settings.php">
                         <i class='bx bx-cog'></i>
                         <span class="link_name">Settings</span>
                     </a>
@@ -135,7 +135,6 @@ try {
             ?>
         </ul>
     </div>
-
     <section class="section">
         <a href="post-timeline.php" class="create-post-button">Create a Post</a>
         <div class="content">

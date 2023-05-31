@@ -1,0 +1,203 @@
+.border {
+  top: 100px;
+  margin: auto;
+  position: relative;
+  display: flex;
+  border: 1px solid black;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  max-width: 80%;
+  border-radius: 10px;
+  padding-bottom: 60px;
+}
+
+.row {
+  padding-top: 50px;
+  margin: auto;
+  text-align: center;
+}
+
+.welc {
+  position: relative;
+  animation: upDownAnimation 2s ease-in-out infinite alternate-reverse both;
+}
+.welc h1 {
+  font-size: 40px;
+}
+.welc h2 {
+  margin-bottom: 20px;
+  font-size: 27px;
+}
+.welc a{
+  
+}
+
+@keyframes upDownAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+.featurelist {
+  position: relative;
+  bottom: -150px;
+  transform: translateX(-50%);
+}
+.featurelist::after {
+  content: "";
+  position: absolute;
+  bottom: -90px;
+  margin: auto;
+  width: 100%;
+  height: 2px;
+  background-color: black;
+}
+
+.featurelist h1 {
+  font-size: 24px;
+  text-align: center;
+  animation: upDownAnimation 2s ease-in-out infinite alternate-reverse both;
+}
+
+.box-container {
+  display: flex;
+  justify-content: space-between;
+  animation: upDownAnimation 2s ease-in-out infinite alternate-reverse both;
+  width: 50%;
+  margin: auto;
+}
+.box {
+  flex: 1;
+  height: 100px;
+  background-color: rgb(255, 255, 255);
+  border: 2px;
+  border-radius: 10px;
+  margin: 0 10px;
+  padding-bottom: 110px;
+}
+.box .icon {
+  margin: 0 auto 20px auto;
+}
+.box:hover {
+  background-color: greenyellow;
+  transition: background-color 0.3s ease;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.box .icon {
+  position: absolute;
+  transform: translate(-5%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 40px;
+}
+
+.box a {
+  text-decoration: none;
+  color: black;
+  margin-top: 20px;
+}
+
+.box h4.title {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.box p.description {
+  font-size: 14px;
+  text-align: center;
+}
+.Teamlist {
+  position: relative;
+  bottom: -300px;
+  transform: translateX(-50%);
+}
+.Teamlist h1 {
+  font-size: 24px;
+  text-align: center;
+  animation: upDownAnimation 2s ease-in-out infinite alternate-reverse both;
+}
+.Teamlist h4 {
+  font-size: 18px;
+  text-align: center;
+  animation: upDownAnimation 2s ease-in-out infinite alternate-reverse both;
+}
+.Teamlist .box {
+  flex: 1;
+  background-color: rgb(255, 255, 255);
+  border: 2px;
+  border-radius: 10px;
+  margin: 0 10px;
+  height: 350px;
+  padding-bottom: 110px;
+  margin-top: 20px;
+}
+
+.image-fluid {
+  max-width: 100%;
+  height: auto;
+}
+/* --- Footer Area --- */
+.bottom-section {
+  position: relative;
+  width: 100%;
+  margin: 0 auto 0 auto;
+  background-color: #dfc6c2;
+  text-align: center;
+  margin-top: 200px;
+}
+
+.bottom-section .container {
+  width: 100%;
+  margin: 0 auto 0 auto;
+  padding: 20px 20px 20px 20px;
+  background-color: #dfc6c2;
+}
+.bottom-section .container p {
+  color: #ffffff;
+}
+
+.clear_both {
+  clear: both;
+}
+.container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 9;
+}
+.btn-login,
+.btn-register {
+  color: var(--color);
+  transition: 0.25s;
+
+  &:hover,
+  &:focus {
+    border-color: var(--hover);
+    color: #159927;
+  }
+}
+.btn-login,
+.btn-register {
+  background: white;
+  border: 3px solid;
+  font: inherit;
+  line-height: 0.1;
+  margin: 0.5em;
+  padding: 1em 2em;
+  text-decoration: none;
+}
+.btn-login:hover,
+.btn-register:hover {
+  cursor: pointer;
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
+}

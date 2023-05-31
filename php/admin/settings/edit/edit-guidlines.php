@@ -158,6 +158,7 @@ if (isset($_POST['simpan'])) {
         <div class="content">
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <div class="settings-form">
+                <h1>Configure Guidlines</h1>
                 <form method="POST" enctype="multipart/form-data">
                     <label for="title">Title:</label>
                     <input type="text" name="title" value="<?php echo $guidelines['title']; ?>" required><br>

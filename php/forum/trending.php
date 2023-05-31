@@ -140,17 +140,18 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <a href="../login.php" class="btn btn-login">Log In</a>
+        <a href="../register.php" class="btn btn-register">Sign Up</a>
+    </div>
+    <div class="search-container">
+        <form action="#" method="GET">
+            <input type="text" name="search" placeholder="Search...">
+            <button type="submit"><i class="bx bx-search"></i></button>
+        </form>
+    </div>
 </section>
-<div class="container">
-    <a href="../login.php" class="btn btn-login">Log In</a>
-    <a href="../register.php" class="btn btn-register">Sign Up</a>
-</div>
-<div class="search-container">
-    <form action="#" method="GET">
-        <input type="text" name="search" placeholder="Search...">
-        <button type="submit"><i class="bx bx-search"></i></button>
-    </form>
-</div>
+
 <script src="../../js/script.js"></script>
 </body>
 

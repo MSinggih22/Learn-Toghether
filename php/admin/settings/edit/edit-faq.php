@@ -158,6 +158,7 @@ if (isset($_POST['simpan'])) {
         <div class="content">
             <i onclick="chonclick(this)" class='bx bx-chevron-right'></i>
             <div class="settings-form">
+                <h1>Configure Faqs</h1>
                 <form method="POST" enctype="multipart/form-data">
                     <label for="Pertanyaan">Pertanyaan:</label>
                     <input type="text" name="Pertanyaan" value="<?php echo $faqs['Pertanyaan']; ?>" required><br>

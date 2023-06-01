@@ -109,7 +109,7 @@
                     </p>
                 </div>
                 <div class="box">
-                    <div class="icon"><i class="bx bx-pie-chart"></i></div>
+                    <div class="icon"><i class="bx bx-buoy"></i></div>
                     <a href="materi/materi-list.php">
                         <h4 class="title">MATERI</h4>
                     </a>

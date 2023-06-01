@@ -47,61 +47,61 @@ try {
             </div>
             <ul class="nav-links">
                 <li>
-                    <a href="home.php">
+                    <a href="log-home.php">
                         <i class='bx bx-home'></i>
                         <span class="link_name">Home</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="home.php">Home</a></li>
+                        <li><a class="link_name" href="log-home.php">Home</a></li>
                     </ul>
                 </li>
 
                 <li>
                     <div class="iocn-link">
-                        <a href="forum/forum.php">
+                        <a href="forum/log-forum.php">
                             <i class='bx bx-collection'></i>
                             <span class="link_name">Forum</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="forum/forum.php">Forum</a></li>
-                        <li><a href="forum/category.php">Category</a></li>
-                        <li><a href="forum/trending.php">Trending</a></li>
+                        <li><a class="link_name" href="forum/log-forum.php">Forum</a></li>
+                        <li><a href="forum/log-category.php">Category</a></li>
+                        <li><a href="forum/log-trending.php">Trending</a></li>
                     </ul>
                 </li>
 
                 <li>
-                    <a href="timeline/timeline.php">
+                    <a href="timeline/log-timeline.php">
                         <i class='bx bx-pie-chart-alt-2'></i>
                         <span class="link_name">Timeline</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="timeline/timeline.php">Timeline</a></li>
+                        <li><a class="link_name" href="timeline/log-timeline.php">Timeline</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="materi/materi-list.php">
+                    <a href="materi/log-materi-list.php">
                         <i class='bx bx-buoy'></i>
                         <span class="link_name">Materi</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="materi/materi-list.php">Materi</a></li>
+                        <li><a class="link_name" href="materi/log-materi-list.php">Materi</a></li>
                     </ul>
                 </li>
 
                 <li>
                     <div class="iocn-link">
-                        <a href="">
+                        <a href="log-home.php">
                             <i class='bx bx-collection'></i>
                             <span class="link_name">Customer Services</span>
                         </a>
                         <i class='bx bxs-chevron-down arrow'></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="#">Customer Service</a></li>
-                        <li><a href="CS/faqs.php">Faqs</a></li>
-                        <li><a href="CS/guidlines.php">Gudelines</a></li>
+                        <li><a class="link_name" href="log-home.php">Customer Service</a></li>
+                        <li><a href="CS/log-faqs.php">Faqs</a></li>
+                        <li><a href="CS/log-guidlines.php">Gudelines</a></li>
                     </ul>
                 </li>
                 </li>
@@ -187,7 +187,7 @@ try {
                 </div>
             </div>
             <div class="Teamlist" data-aos="fade-up" data-aos-delay="2000" data-aos-duration="1000">
-                <h1>---TEAM---</h1>
+                <h1>---DEV TEAM---</h1>
                 <div class="box-container" data-aos="fade-up" data-aos-delay="2400" data-aos-duration="1000">
                     <div class="box">
                         <div class="image"> <img src="../assets/image/User-Man.png" class="image-fluid"></div>

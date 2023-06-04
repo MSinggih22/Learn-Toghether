@@ -16,6 +16,14 @@ try {
         header('Location: index.html');
         exit();
     }
+    $stmt = $pdo->prepare('SELECT role FROM users WHERE id_user = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
+    $user = $stmt->fetch();
+
+    if ($user['role'] !== 'admin') {
+        header('Location: ../../log-home.php');
+        exit();
+    }
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }
@@ -103,6 +111,15 @@ try {
                 </a>
                 <ul class="sub-menu blank">
                     <li><a class="link_name" href="guidlines-settings.php">Guidlines Settings</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="../../log-home.php">
+                    <i class='bx bx-desktop'></i>
+                    <span class="link_name">Go To Website</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="../../home.php">Go To Website</a></li>
                 </ul>
             </li>
 

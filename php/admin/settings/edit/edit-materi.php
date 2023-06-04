@@ -15,6 +15,10 @@ try {
         header('Location: index.html');
         exit();
     }
+    $stmt = $pdo->prepare('SELECT role FROM users WHERE id_user = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
+    $user = $stmt->fetch();
+
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }
@@ -129,6 +133,15 @@ if (isset($_POST['simpan'])) {
                     <li><a class="link_name" href="../guidlines-settings.php">Guidlines Settings</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="../../../log-home.php">
+                    <i class='bx bx-desktop'></i>
+                    <span class="link_name">Go To Website</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="../../../home.php">Go To Website</a></li>
+                </ul>
+            </li>
             <?php
             $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = :user_id');
             $stmt->execute(['user_id' => $user_id]);
@@ -168,11 +181,8 @@ if (isset($_POST['simpan'])) {
 
                     <label for="link_video">Link Video:</label>
                     <input type="link_video" name="link_video" value="<?php echo $materi['link_video']; ?>" required><br>
-                    <label for="id_pengajar">id_pengajar:</label>
-                    <select name="id_pengajar" required>
-                        <option value="admin" <?php if ($materi['id_pengajar'] == '1') echo 'selected'; ?>>1</option>
-                        <option value="user" <?php if ($materi['id_pengajar'] == '2') echo 'selected'; ?>>2</option>
-                    </select><br>
+
+
                     <input type="submit" name="simpan" value="simpan">
                 </form>
             </div>

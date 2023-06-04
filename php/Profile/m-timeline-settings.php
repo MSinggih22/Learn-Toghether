@@ -13,9 +13,12 @@ try {
     $session = $stmt->fetch();
 
     if (!$session) {
-        header('Location: index.html');
+        header('Location: ../login.php');
         exit();
     }
+    $stmt = $pdo->prepare('SELECT role FROM users WHERE id_user = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
+    $user = $stmt->fetch();
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }
@@ -97,19 +100,32 @@ try {
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="../settings/settings.php">
+                    <a href="m-profile-settings.php">
                         <i class='bx bx-cog'></i>
                         <span class="link_name">Settings</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Settings</a></li>
-                    <li><a href="../Profile/m-profile-settings.php">My Profile Settings</a></li>
-                    <li><a href="../Profile/m-forum-settings.php">My Forum Settings</a></li>
-                    <li><a href="../Profile/m-timeline-settings.php">My Timeline Settings</a></li>
+                    <li><a class="link_name" href="m-profile-settings.php">Settings</a></li>
+                    <li><a href="m-profile-settings.php">My Profile Settings</a></li>
+                    <li><a href="m-forum-settings.php">My Forum Settings</a></li>
+                    <li><a href="m-timeline-settings.php">My Timeline Settings</a></li>
                 </ul>
             </li>
+            <?php if ($user['role'] === 'admin') { ?>
+                <li>
+                    <div class="iocn-link">
+                        <a href="../Admin/admin-menu.php">
+                            <i class='bx bx-desktop'></i>
+                            <span class="link_name">Admin Menu</span>
+                        </a>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a class="link_name" href="../Admin/admin-menu.php">Admin Menu</a></li>
+                    </ul>
+                </li>
+            <?php } ?>
             <?php
             $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = :user_id');
             $stmt->execute(['user_id' => $user_id]);
@@ -181,4 +197,5 @@ try {
     </div>
     <script src="../../js/script.js"></script>
 </body>
+
 </html>

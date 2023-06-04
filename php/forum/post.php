@@ -17,7 +17,7 @@ try {
 
     if (!$session) {
         // Invalid session, redirect to the login page
-        header('Location: ../login.html');
+        header('Location: ../login.php');
         exit();
     }
 } catch (PDOException $e) {
@@ -32,18 +32,20 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['token'])) {
 }
 
 if (isset($_POST['submit'])) {
+
     $title = $_POST['title'];
     $description = $_POST['description'];
-
-    $img = addslashes(file_get_contents($_FILES['img']['tmp_name']));
+    $img = "";
+    
+    if (isset($_FILES['img']['tmp_name']) && !empty($_FILES['img']['tmp_name'])) {
+        $img = addslashes(file_get_contents($_FILES['img']['tmp_name']));
+    }
 
     $user_id = $_SESSION['user_id'];
-
     $categories = $_POST['category'];
-
     $followers = 0;
 
-    $sql = "INSERT INTO topics (user_id, title, description,  followers, img, created_at) 
+    $sql = "INSERT INTO topics (user_id, title, description, followers, img, created_at) 
             VALUES ('$user_id', '$title', '$description', '$followers', '$img', NOW())";
     mysqli_query($conn, $sql);
 
@@ -68,19 +70,6 @@ if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $categories[] = $row;
     }
-}
-
-$loggedInUser = $_SESSION['user_id'];
-$loggedinUsername = "";
-
-
-// Retrieve the username of the logged in user
-$sql = "SELECT username FROM users WHERE id_user = '$loggedInUser'";
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-    $row = mysqli_fetch_assoc($result);
-    $loggedinUsername = $row['username'];
 }
 ?>
 <!DOCTYPE html>

@@ -102,6 +102,7 @@
                         $topicID = $row['id_topics'];
 
                         $commentStmt = $conn->prepare("SELECT COUNT(*) AS comment_count FROM topics_comments WHERE topic_id = ?");
+                        
                         $commentStmt->bind_param("i", $topicID);
                         $commentStmt->execute();
                         $commentResult = $commentStmt->get_result();
@@ -128,7 +129,7 @@
                         echo "</div>";
                         echo "<div class='box-content'>";
                         echo "<div class='box-title'>";
-                        echo "<a href='inside-forum.php?id=" . $row['id_topics'] . "'>"; // Modify the anchor tag with the appropriate forum page URL
+                        echo "<a href='inside-forum.php?id=" . $row['id_topics'] . "'>";
                         echo "<h2>" . $row['title'] . "</h2>";
                         echo "</a>";
                         echo "</div>";

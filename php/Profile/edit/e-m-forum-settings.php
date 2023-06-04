@@ -12,14 +12,18 @@ try {
     $session = $stmt->fetch();
 
     if (!$session) {
-        header('Location: index.html');
+        header('Location: ../../login.php');
         exit();
     }
+    $stmt = $pdo->prepare('SELECT role FROM users WHERE id_user = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
+    $user = $stmt->fetch();
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }
 
 $id_topics = $_GET['id_topics'];
+
 $query = "SELECT * FROM topics WHERE id_topics = '$id_topics'";
 $result = mysqli_query($conn, $query);
 $topics = mysqli_fetch_assoc($result);
@@ -29,7 +33,7 @@ if (isset($_POST['simpan'])) {
     $title = $_POST['title'];
     $description = $_POST['description'];
 
-    if ($_FILES['img']['name'] != '') {
+    if (!empty($_FILES['img']['name'])) {
         // Mendapatkan informasi file gambar
         $file_name = $_FILES['img']['name'];
         $file_size = $_FILES['img']['size'];
@@ -38,8 +42,16 @@ if (isset($_POST['simpan'])) {
         $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
         $allowed_extensions = array("jpg", "jpeg", "png", "gif");
+        
         if (in_array($file_ext, $allowed_extensions)) {
-            $query = "UPDATE topics SET title = '$title', description = '$description' , img = '$file_name' WHERE id_topics = '$id_topics'";
+            // Baca isi file gambar sebagai data biner
+            $img_data = file_get_contents($file_tmp);
+
+            // Escape string untuk data biner
+            $img_data = mysqli_real_escape_string($conn, $img_data);
+
+            // Update data di database termasuk data gambar
+            $query = "UPDATE topics SET title = '$title', description = '$description', img = '$img_data' WHERE id_topics = '$id_topics'";
             $result = mysqli_query($conn, $query);
 
             if ($result) {
@@ -47,7 +59,7 @@ if (isset($_POST['simpan'])) {
                 echo "Data telah diperbarui.";
             } else {
                 // Tampilkan pesan kesalahan jika terjadi masalah dalam memperbarui data
-                echo "Terjadi kesalahan. Silakan coba lagi.";
+                echo "Terjadi kesalahan dalam mengupdate database. Silakan coba lagi.";
             }
         } else {
             // Tampilkan pesan kesalahan jika ekstensi file tidak valid
@@ -63,11 +75,10 @@ if (isset($_POST['simpan'])) {
             exit();
         } else {
             // Tampilkan pesan kesalahan jika terjadi masalah dalam memperbarui data
-            echo "Terjadi kesalahan. Silakan coba lagi.";
+            echo "Terjadi kesalahan dalam mengupdate database. Silakan coba lagi.";
         }
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -157,6 +168,19 @@ if (isset($_POST['simpan'])) {
                     <li><a href="../../Profile/m-timeline-settings.php">My Timeline Settings</a></li>
                 </ul>
             </li>
+            <?php if ($user['role'] === 'admin') { ?>
+                <li>
+                    <div class="iocn-link">
+                        <a href="Admin/admin-menu.php">
+                            <i class='bx bx-desktop'></i>
+                            <span class="link_name">Admin Menu</span>
+                        </a>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a class="link_name" href="../../Admin/admin-menu.php">Admin Menu</a></li>
+                    </ul>
+                </li>
+            <?php } ?>
             <?php
             $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = :user_id');
             $stmt->execute(['user_id' => $user_id]);

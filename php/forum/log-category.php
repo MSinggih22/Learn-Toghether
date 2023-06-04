@@ -15,9 +15,12 @@ try {
 
     if (!$session) {
         // Invalid session, redirect to the login page
-        header('Location: index.html');
+        header('Location: ../login.php');
         exit();
     }
+    $stmt = $pdo->prepare('SELECT role FROM users WHERE id_user = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
+    $user = $stmt->fetch();
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }
@@ -136,7 +139,19 @@ if (mysqli_num_rows($result) > 0) {
                     <li><a href="../Profile/m-timeline-settings.php">My Timeline Settings</a></li>
                 </ul>
             </li>
-
+            <?php if ($user['role'] === 'admin') { ?>
+                <li>
+                    <div class="iocn-link">
+                        <a href="../Admin/admin-menu.php">
+                            <i class='bx bx-desktop'></i>
+                            <span class="link_name">Admin Menu</span>
+                        </a>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a class="link_name" href="../Admin/admin-menu.php">Admin Menu</a></li>
+                    </ul>
+                </li>
+            <?php } ?>
             <?php
             $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = :user_id');
             $stmt->execute(['user_id' => $user_id]);
@@ -170,7 +185,7 @@ if (mysqli_num_rows($result) > 0) {
                 <h1>Select Category</h1>
                 <div class="list-container">
                     <?php foreach ($categories as $category) : ?>
-                        <a href="category-forum.php?category_id=<?php echo $category['id_t_category']; ?>" class="button">
+                        <a href="log-category-forum.php?category_id=<?php echo $category['id_t_category']; ?>" class="button">
                             <?php echo $category['name']; ?>
                         </a>
                     <?php endforeach; ?>

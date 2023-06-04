@@ -17,7 +17,7 @@ try {
 
     if (!$session) {
         // Invalid session, redirect to the login page
-        header('Location: ../login.html');
+        header('Location: ../login.php');
         exit();
     }
 } catch (PDOException $e) {

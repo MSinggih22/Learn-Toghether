@@ -47,10 +47,13 @@
 }
 .box-image {
   display: block;
-  width: 100px;
-  height: 100px;
-  margin-top: 0px;
+  margin-top: 10px;
 }
+.box-image img {
+max-width: 140px;
+max-height: 100px;
+}
+
 .box-content {
   margin: auto;
   margin-left: 8%;

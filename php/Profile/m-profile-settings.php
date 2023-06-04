@@ -14,9 +14,12 @@ try {
     $session = $stmt->fetch();
 
     if (!$session) {
-        header('Location: index.html');
+        header('Location: ../login.php');
         exit();
     }
+    $stmt = $pdo->prepare('SELECT role FROM users WHERE id_user = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
+    $user = $stmt->fetch();
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }
@@ -30,28 +33,40 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $u_image = $_FILES['users_image'];
 
-    $filename = $u_image['name'];
-    $tmpFilePath = $u_image['tmp_name'];
-    $fileSize = $u_image['size'];
-    $fileType = $u_image['type'];
+    if (!empty($_FILES['users_image']['name'])) {
+        // Mendapatkan informasi file gambar
+        $file_name = $_FILES['users_image']['name'];
+        $file_size = $_FILES['users_image']['size'];
+        $file_tmp = $_FILES['users_image']['tmp_name'];
+        $file_type = $_FILES['users_image']['type'];
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
-    // Read the contents of the image file
-    $imageData = addslashes(file_get_contents($tmpFilePath)); // Add addslashes() to handle special characters
+        $allowed_extensions = array("jpg", "jpeg", "png", "gif");
+        if (in_array($file_ext, $allowed_extensions)) {
+            $img_data = file_get_contents($file_tmp);
+            $img_data = mysqli_real_escape_string($conn, $img_data);
+            $query = "UPDATE users SET email = '$email', username = '$username', password = '$password' , users_image = '$img_data' WHERE id_user = '$user_id'";
+            $result = mysqli_query($conn, $query);
 
-    $query = "UPDATE users SET email = '$email', username = '$username', password = '$password', users_image = '$imageData' WHERE id_user = '$user_id'";
-    $result = mysqli_query($conn, $query);
-
-
-    if ($result) {
-        // Informasikan pengguna bahwa data telah diperbarui
-        echo "Data telah diperbarui.";
-        header("Location: m-profile-settings.php");
-        exit();
+            if ($result) {
+                echo "Data telah diperbarui.";
+            } else {
+                echo "Terjadi kesalahan dalam mengupdate database. Silakan coba lagi.";
+            }
+        } else {
+            echo "Hanya file gambar dengan ekstensi JPG, JPEG, PNG, atau GIF yang diizinkan.";
+        }
     } else {
-        // Tampilkan pesan kesalahan jika terjadi masalah dalam memperbarui data
-        echo "Terjadi kesalahan. Silakan coba lagi.";
+        $query = "UPDATE users SET email = '$email', username = '$username', password = '$password' WHERE id_user = '$user_id'";
+        $result = mysqli_query($conn, $query);
+        if ($result) {
+            echo "Data telah diperbarui.";
+            header("Location:m-profile-settings.php");
+            exit();
+        } else {
+            echo "Terjadi kesalahan dalam mengupdate database. Silakan coba lagi.";
+        }
     }
 }
 
@@ -132,19 +147,32 @@ if (isset($_POST['submit'])) {
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="../settings/settings.php">
+                    <a href="m-profile-settings.php">
                         <i class='bx bx-cog'></i>
                         <span class="link_name">Settings</span>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a class="link_name" href="#">Settings</a></li>
-                    <li><a href="../Profile/m-profile-settings.php">My Profile Settings</a></li>
-                    <li><a href="../Profile/m-forum-settings.php">My Forum Settings</a></li>
-                    <li><a href="../Profile/m-timeline-settings.php">My Timeline Settings</a></li>
+                    <li><a class="link_name" href="m-profile-settings.php">Settings</a></li>
+                    <li><a href="m-profile-settings.php">My Profile Settings</a></li>
+                    <li><a href="m-forum-settings.php">My Forum Settings</a></li>
+                    <li><a href="m-timeline-settings.php">My Timeline Settings</a></li>
                 </ul>
             </li>
+            <?php if ($user['role'] === 'admin') { ?>
+                <li>
+                    <div class="iocn-link">
+                        <a href="../Admin/admin-menu.php">
+                            <i class='bx bx-desktop'></i>
+                            <span class="link_name">Admin Menu</span>
+                        </a>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a class="link_name" href="../Admin/admin-menu.php">Admin Menu</a></li>
+                    </ul>
+                </li>
+            <?php } ?>
             <?php
             $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = :user_id');
             $stmt->execute(['user_id' => $user_id]);
@@ -175,7 +203,6 @@ if (isset($_POST['submit'])) {
             <span class="text"></span>
             <div class="settings-form">
                 <h1>Configure Account</h1>
-
                 <form method="POST" enctype="multipart/form-data">
                     <label for="email">Email:</label>
                     <input type="email" name="email" value="<?php echo $row['email']; ?>" required><br>

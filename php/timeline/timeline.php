@@ -112,6 +112,7 @@
                     $username = $row['username'];
                     $description = $row['description'];
                     $profile_image = $row['users_image'];
+
                     echo "<div class='box'>";
                     echo "<div class='box-image'>";
                     echo "<img src='data:image/jpeg;base64," . base64_encode($profile_image) . "' alt='Profile Image' class='profile-image'>";
@@ -136,11 +137,12 @@
                     if (!empty($comments)) {
                         echo "<button onclick='toggleComments(this)' class='show-comment-button'>Show Comment</button>";
                         echo "<div class='box-comments' style='display: none;'>";
+                        echo "<p>Comment:</p>";
+
                         foreach ($comments as $comment) {
                             $commentContent = $comment['comment'];
                             $commentUsername = $comment['comment_username'];
                             echo "<div class='comment'>";
-                            echo "<p>Comment:</p>";
                             echo "<span class='comment-username'>{$commentUsername}: </span>";
                             echo "<p>{$commentContent}</p>";
                             echo "</div>";

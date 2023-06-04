@@ -158,8 +158,8 @@
   max-width: 100%;
 }
 .content-box-image img {
-  width: 400px;
-  height: 400px;
+  max-width: 400px;
+  max-height: 300px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -185,7 +185,8 @@
   }
 }
 
-.btn-login, .btn-register {
+.btn-login,
+.btn-register {
   color: var(--color);
   transition: 0.25s;
 
@@ -195,7 +196,8 @@
     color: #159927;
   }
 }
-.btn-login , .btn-register {
+.btn-login,
+.btn-register {
   background: white;
   border: 3px solid;
   font: inherit;

@@ -18,6 +18,9 @@ try {
         header('Location: index.html');
         exit();
     }
+    $stmt = $pdo->prepare('SELECT role FROM users WHERE id_user = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
+    $user = $stmt->fetch();
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }
@@ -33,28 +36,40 @@ if (isset($_POST['simpan'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $role = $_POST['role'];
-    $u_image = $_FILES['users_image'];
 
-    $filename = $u_image['name'];
-    $tmpFilePath = $u_image['tmp_name'];
-    $fileSize = $u_image['size'];
-    $fileType = $u_image['type'];
+    if (!empty($_FILES['users_image']['name'])) {
+        // Mendapatkan informasi file gambar
+        $file_name = $_FILES['users_image']['name'];
+        $file_size = $_FILES['users_image']['size'];
+        $file_tmp = $_FILES['users_image']['tmp_name'];
+        $file_type = $_FILES['users_image']['type'];
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
-    // Read the contents of the image file
-    $imageData = addslashes(file_get_contents($tmpFilePath)); // Add addslashes() to handle special characters
+        $allowed_extensions = array("jpg", "jpeg", "png", "gif");
+        if (in_array($file_ext, $allowed_extensions)) {
+            $img_data = file_get_contents($file_tmp);
+            $img_data = mysqli_real_escape_string($conn, $img_data);
+            $query = "UPDATE users SET email = '$email', username = '$username', password = '$password' , users_image = '$img_data' WHERE id_user = '$user_id'";
+            $result = mysqli_query($conn, $query);
 
-    $query = "UPDATE users SET email = '$email', username = '$username', password = '$password', users_image = '$imageData' WHERE id_user = '$user_id'";
-    $result = mysqli_query($conn, $query);
-
-
-    if ($result) {
-        // Informasikan pengguna bahwa data telah diperbarui
-        echo "Data telah diperbarui.";
-        header("Location: ../user-settings.php");
-        exit();
+            if ($result) {
+                echo "Data telah diperbarui.";
+            } else {
+                echo "Terjadi kesalahan dalam mengupdate database. Silakan coba lagi.";
+            }
+        } else {
+            echo "Hanya file gambar dengan ekstensi JPG, JPEG, PNG, atau GIF yang diizinkan.";
+        }
     } else {
-        // Tampilkan pesan kesalahan jika terjadi masalah dalam memperbarui data
-        echo "Terjadi kesalahan. Silakan coba lagi.";
+        $query = "UPDATE users SET email = '$email', username = '$username', password = '$password' WHERE id_user = '$user_id'";
+        $result = mysqli_query($conn, $query);
+        if ($result) {
+            echo "Data telah diperbarui.";
+            header("Location:../user-settings.php");
+            exit();
+        } else {
+            echo "Terjadi kesalahan dalam mengupdate database. Silakan coba lagi.";
+        }
     }
 }
 
@@ -141,6 +156,15 @@ if (isset($_POST['simpan'])) {
                 </a>
                 <ul class="sub-menu blank">
                     <li><a class="link_name" href="../guidlines-settings.php">Guidlines Settings</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="../../../log-home.php">
+                    <i class='bx bx-desktop'></i>
+                    <span class="link_name">Go To Website</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="../../../home.php">Go To Website</a></li>
                 </ul>
             </li>
             <?php

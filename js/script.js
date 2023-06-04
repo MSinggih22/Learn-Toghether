@@ -154,7 +154,6 @@ function toggleComments(button) {
 }
 
 //link youtube dengan youtube API
-//link youtube dengan youtube API
 function playVideo(playerId, videoId) {
   // Load the YouTube IFrame API asynchronously
   var tag = document.createElement("script");

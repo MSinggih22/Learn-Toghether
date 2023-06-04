@@ -19,9 +19,12 @@ try {
     $session = $stmt->fetch();
 
     if (!$session) {
-        header('Location: ../login.php');
+        header('Location: login.php');
         exit();
     }
+    $stmt = $pdo->prepare('SELECT role FROM users WHERE id_user = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
+    $user = $stmt->fetch();
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }
@@ -39,6 +42,7 @@ try {
 </head>
 
 <body>
+
     <body>
         <div class="sidebar close">
             <div class="logo-details">
@@ -89,10 +93,9 @@ try {
                         <li><a class="link_name" href="materi/log-materi-list.php">Materi</a></li>
                     </ul>
                 </li>
-
                 <li>
                     <div class="iocn-link">
-                        <a href="log-home.php">
+                        <a href="CS/faqs.php">
                             <i class='bx bx-collection'></i>
                             <span class="link_name">Customer Services</span>
                         </a>
@@ -121,6 +124,19 @@ try {
                     </ul>
                 </li>
 
+                <?php if ($user['role'] === 'admin') { ?>
+                    <li>
+                        <div class="iocn-link">
+                            <a href="Admin/admin-menu.php">
+                                <i class='bx bx-desktop'></i>
+                                <span class="link_name">Admin Menu</span>
+                            </a>
+                        </div>
+                        <ul class="sub-menu">
+                            <li><a class="link_name" href="Admin/admin-menu.php">Admin Menu</a></li>
+                        </ul>
+                    </li>
+                <?php } ?>
                 <?php
                 $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = :user_id');
                 $stmt->execute(['user_id' => $user_id]);

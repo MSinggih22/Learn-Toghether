@@ -16,6 +16,17 @@ try {
         header('Location: index.html');
         exit();
     }
+
+    // Mengambil data pengguna dari tabel users
+    $stmt = $pdo->prepare('SELECT role FROM users WHERE id_user = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
+    $user = $stmt->fetch();
+
+    if ($user['role'] !== 'admin') {
+        // Jika role pengguna bukan admin, arahkan ke URL tertentu
+        header('Location: ../log-home.php');
+        exit();
+    }
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }

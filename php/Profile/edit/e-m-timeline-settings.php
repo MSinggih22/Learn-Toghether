@@ -12,14 +12,18 @@ try {
     $session = $stmt->fetch();
 
     if (!$session) {
-        header('Location: index.html');
+        header('Location: ../../login.php');
         exit();
     }
+    $stmt = $pdo->prepare('SELECT role FROM users WHERE id_user = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
+    $user = $stmt->fetch();
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }
 
 $id_timeline = $_GET['id_timeline'];
+
 $query = "SELECT t.*, u.username from timeline as t join users as u on t.user_id = u.id_user WHERE id_timeline = '$id_timeline'";
 $result = mysqli_query($conn, $query);
 $timeline = mysqli_fetch_assoc($result);
@@ -130,6 +134,19 @@ if (isset($_POST['simpan'])) {
                     <li><a href="../../Profile/m-timeline-settings.php">My Timeline Settings</a></li>
                 </ul>
             </li>
+            <?php if ($user['role'] === 'admin') { ?>
+                <li>
+                    <div class="iocn-link">
+                        <a href="Admin/admin-menu.php">
+                            <i class='bx bx-desktop'></i>
+                            <span class="link_name">Admin Menu</span>
+                        </a>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a class="link_name" href="../../Admin/admin-menu.php">Admin Menu</a></li>
+                    </ul>
+                </li>
+            <?php } ?>
             <?php
             $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = :user_id');
             $stmt->execute(['user_id' => $user_id]);

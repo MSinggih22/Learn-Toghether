@@ -22,6 +22,9 @@ try {
         header('Location: ../login.php');
         exit();
     }
+    $stmt = $pdo->prepare('SELECT role FROM users WHERE id_user = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
+    $user = $stmt->fetch();
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }
@@ -115,7 +118,19 @@ try {
                     <li><a href="../Profile/m-timeline-settings.php">My Timeline Settings</a></li>
                 </ul>
             </li>
-
+            <?php if ($user['role'] === 'admin') { ?>
+                <li>
+                    <div class="iocn-link">
+                        <a href="../Admin/admin-menu.php">
+                            <i class='bx bx-desktop'></i>
+                            <span class="link_name">Admin Menu</span>
+                        </a>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a class="link_name" href="../Admin/admin-menu.php">Admin Menu</a></li>
+                    </ul>
+                </li>
+            <?php } ?>
             <?php
             $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = :user_id');
             $stmt->execute(['user_id' => $user_id]);
@@ -212,6 +227,7 @@ try {
                         echo "<p class='post-button bx bx-show'>" . $viewsCount . " </p>";
                         echo "<p class='post-button bx bx-comment'>" . $commentCount . " </p>";
                         echo "<p class='post-button bx bx-user-plus'>" . $followersCount . " </p>";
+
                         echo "<form method='post'>";
                         echo "<button type='submit' name='follow-button'>";
                         $userId = $_SESSION['user_id'];

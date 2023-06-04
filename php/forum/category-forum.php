@@ -129,7 +129,7 @@
                     echo "</div>";
                     echo "<div class='box-content'>";
                     echo "<div class='box-title'>";
-                    echo "<a href='inside-forum.php?id=" . $row['id_topics'] . "'>"; // Modify the anchor tag with the appropriate forum page URL
+                    echo "<a href='inside-forum.php?id=" . $row['id_topics'] . "'>";
                     echo "<h2>" . $row['title'] . "</h2>";
                     echo "</a>";
                     echo "</div>";

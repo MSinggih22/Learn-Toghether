@@ -15,9 +15,12 @@ try {
 
     if (!$session) {
         // Invalid session, redirect to the login page
-        header('Location: index.html');
+        header('Location: ../login.php');
         exit();
     }
+    $stmt = $pdo->prepare('SELECT role FROM users WHERE id_user = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
+    $user = $stmt->fetch();
 } catch (PDOException $e) {
     die("Connection error: " . $e->getMessage());
 }
@@ -109,7 +112,19 @@ try {
                 <li><a href="../Profile/m-timeline-settings.php">My Timeline Settings</a></li>
             </ul>
         </li>
-
+        <?php if ($user['role'] === 'admin') { ?>
+            <li>
+                <div class="iocn-link">
+                    <a href="../Admin/admin-menu.php">
+                        <i class='bx bx-desktop'></i>
+                        <span class="link_name">Admin Menu</span>
+                    </a>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="../Admin/admin-menu.php">Admin Menu</a></li>
+                </ul>
+            </li>
+        <?php } ?>
         <?php
         $stmt = $pdo->prepare('SELECT * FROM users WHERE id_user = :user_id');
         $stmt->execute(['user_id' => $user_id]);
@@ -189,7 +204,7 @@ try {
                     echo "</div>";
                     echo "<div class='box-content'>";
                     echo "<div class='box-title'>";
-                    echo "<a href='inside-forum.php?id=" . $row['id_topics'] . "'>"; // Modify the anchor tag with the appropriate forum page URL
+                    echo "<a href='inside-forum.php?id=" . $row['id_topics'] . "'>";
                     echo "<h2>" . $row['title'] . "</h2>";
                     echo "</a>";
                     echo "</div>";
@@ -216,10 +231,6 @@ try {
         </div>
     </div>
 </section>
-<div class="container">
-    <a href="../login.php" class="btn btn-login">Log In</a>
-    <a href="../register.php" class="btn btn-register">Sign Up</a>
-</div>
 <div class="search-container">
     <form action="#" method="GET">
         <input type="text" name="search" placeholder="Search...">

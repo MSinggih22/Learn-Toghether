@@ -144,7 +144,6 @@
         </div>
     </section>
     <script>
-        // Automatically play the video when the page is loaded
         document.addEventListener('DOMContentLoaded', function() {
             var videoId = "<?php echo $linkVideo; ?>";
             var materiId = "<?php echo $materiId; ?>";
@@ -153,8 +152,6 @@
         });
     </script>
     <script src="../../js/script.js"></script>
-
-
     <div class="container">
         <a href="../login.php" class="btn btn-login">Log In</a>
         <a href="../register.php" class="btn btn-register">Sign Up</a>

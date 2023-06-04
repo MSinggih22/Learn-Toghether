@@ -82,7 +82,9 @@
             <div id="posts">
                 <?php
                 include '../db/db-connect.php';
+
                 $forumID = $_GET['id'];
+                
                 $commentStmt = $conn->prepare("SELECT COUNT(*) AS comment_count FROM topics_comments WHERE topic_id = ?");
                 $commentStmt->bind_param("i", $forumID);
                 $commentStmt->execute();
@@ -104,23 +106,23 @@
                 $followersRow = $followersResult->fetch_assoc();
                 $followersCount = $followersRow['followers_count'];
 
-
-                $forumID = $_GET['id'];
-
                 $stmt = $conn->prepare("SELECT * FROM topics WHERE id_topics = ?");
                 $stmt->bind_param("i", $forumID);
                 $stmt->execute();
                 $result = $stmt->get_result();
 
                 if ($result->num_rows > 0) {
+
                     $row = $result->fetch_assoc();
                     $img = $row["img"];
 
                     $authorID = $row['user_id'];
+                    
                     $authorStmt = $conn->prepare("SELECT * FROM users WHERE id_user = ?");
                     $authorStmt->bind_param("i", $authorID);
                     $authorStmt->execute();
                     $authorResult = $authorStmt->get_result();
+
                     echo "<div class='content-boxes'>";
                     if ($authorResult->num_rows > 0) {
                         $authorRow = $authorResult->fetch_assoc();
@@ -153,7 +155,7 @@
                     echo "</div>";
                     echo "</div>";
 
-                    $commentsStmt = $conn->prepare("SELECT tc.comment, tc.created_at, u.username, u.users_image FROM topics_comments tc INNER JOIN users u ON tc.user_id = u.id_user     WHERE tc.topic_id = ?");
+                    $commentsStmt = $conn->prepare("SELECT tc.comment, tc.created_at, u.username, u.users_image FROM topics_comments tc INNER JOIN users u ON tc.user_id = u.id_user  WHERE tc.topic_id = ?");
                     $commentsStmt->bind_param("i", $forumID);
                     $commentsStmt->execute();
                     $commentsResult = $commentsStmt->get_result();
